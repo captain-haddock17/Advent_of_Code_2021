@@ -6,6 +6,21 @@ package Submarine.Binary_Diagnostic is
 
     subtype Channel_ID is Positive range 1 .. Nb_of_Binary_diagnostic_Channels;
 
+
+    -- Define physical ratings of air
+    subtype Rating is Integer;
+
+    type Air_Element is
+       (CO2,
+        OXYGEN);
+    for Air_Element use (0, 1);
+
+    type Air_Mix_Ratings is record
+        Oxygen : Rating;
+        CO2    : Rating;
+    end record;
+
+
     -- Define Diagnostics info
     type Binary_diagnostic is mod 2**Channel_ID'Last;
     for Binary_diagnostic'Size use Channel_ID'Last;
@@ -15,7 +30,6 @@ package Submarine.Binary_Diagnostic is
         Epsilon : Binary_diagnostic := 0;
     end record;
 
-    subtype Rating is Integer;
 
     procedure store_Diagnostic (Binary_Puzzle : in Binary_diagnostic);
 
@@ -23,6 +37,6 @@ package Submarine.Binary_Diagnostic is
 
     procedure compute_Report (Report : in out Failure_Rate);
 
-    procedure report_Life_support_rating (Life_support : in out Rating);
+    procedure report_Life_support_rating (Life_support : in out Rating; Air : in out Air_Mix_Ratings);
 
 end Submarine.Binary_Diagnostic;

@@ -37,6 +37,8 @@ procedure Puzzle_03_B is
 
     Diagostic_Report : Failure_Rate := (Gamma => 0, Epsilon => 0);
 
+    Air_Ratings : Air_Mix_Ratings := (Oxygen => 0, CO2 => 0);
+
     Life_support_rating : Rating := 0;
 
 begin
@@ -57,16 +59,13 @@ begin
     while not End_Of_File (Data_File) loop
 
         Ada.Text_IO.Get_Line (Data_File, Diagnostic_Data, Data_Length);
-        Put ('.');
+        Put ('.');  -- some I/O tracing
         Diagnostic_Str                        := (others => ' ');
         Diagnostic_Str (1 .. Data_Length + 3) := "2#" & Diagnostic_Data (1 .. Data_Length) & "#";
         Diagnostic_Val                        := Binary_diagnostic'Value (Diagnostic_Str);
-        -- Put_Line (Diagnostic_Val'Image);
-        -- Put_Line (Diagnostic_Str);
 
         store_Diagnostic (Binary_Puzzle => Diagnostic_Val);
 
-        -- Ada.Text_IO.New_Line;
     end loop;
 
     Close (Data_File);
@@ -76,19 +75,34 @@ begin
 
     compute_Report (Report => Diagostic_Report);
 
-    report_Life_support_rating (Life_support => Life_support_rating);
+    report_Life_support_rating (Life_support => Life_support_rating, Air => Air_Ratings);
 
     -- Output the result
-    Put_Line ("Diagnostic report:");
-    Put_Line (Latin_1.HT & "Gamma rate   =" & Diagostic_Report.Gamma'Image);
-    Put_Line (Latin_1.HT & "Epsilon rate =" & Diagostic_Report.Epsilon'Image);
-    Put_Line ("Power consumption =" & Integer (Integer (Diagostic_Report.Gamma) * Integer (Diagostic_Report.Epsilon))'Image);
 
+    Put_Line ("Diagnostic report:");
+    Put_Line ("Power consumption =" & Integer (Integer (Diagostic_Report.Gamma) * Integer (Diagostic_Report.Epsilon))'Image);
+    Put_Line (Latin_1.HT & "Gamma rate              =" & Diagostic_Report.Gamma'Image);
+    Put_Line (Latin_1.HT & "Epsilon rate            =" & Diagostic_Report.Epsilon'Image);
+    New_Line;
+    Put_Line ("Submarine's life support rating =" & Life_support_rating'Image);
+    Put_Line (Latin_1.HT & "Oxygen_generator_rating =" & Air_Ratings.Oxygen'Image);
+    Put_Line (Latin_1.HT & "CO2_scrubber_rating     =" & Air_Ratings.CO2'Image);
+ 
 -- Diagnostic report:
 --      Gamma rate   = 3437
 --      Epsilon rate = 658
 -- Power consumption = 2261546
 
-    Put_Line ("Submarine's life support rating :" & Life_support_rating'Image);
 
 end Puzzle_03_B;
+
+-- $ bin/Puzzle_03_B data/Puzzle_03.txt
+-- (...)
+-- Diagnostic report:
+-- Power consumption = 2261546
+-- 	Gamma rate              = 3437
+-- 	Epsilon rate            = 658
+
+-- Submarine's life support rating = 6775520
+-- 	Oxygen_generator_rating = 3995
+-- 	CO2_scrubber_rating     = 1696

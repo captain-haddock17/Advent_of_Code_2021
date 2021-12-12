@@ -55,12 +55,10 @@ begin
     while not End_Of_File (Data_File) loop
 
         Ada.Text_IO.Get_Line (Data_File, Diagnostic_Data, Data_Length);
-        Put ('.');
+        Put ('.');  -- some I/O tracing
         Diagnostic_Str                        := (others => ' ');
         Diagnostic_Str (1 .. Data_Length + 3) := "2#" & Diagnostic_Data (1 .. Data_Length) & "#";
         Diagnostic_Val                        := Binary_diagnostic'Value (Diagnostic_Str);
-        -- Put_Line (Diagnostic_Val'Image);
-        -- Put_Line (Diagnostic_Str);
 
         store_Diagnostic (Binary_Puzzle => Diagnostic_Val);
 
@@ -75,13 +73,16 @@ begin
 
     -- Output the result
     Put_Line ("Diagnostic report:");
+    Put_Line ("Power consumption    =" & Integer (Integer (Diagostic_Report.Gamma) * Integer (Diagostic_Report.Epsilon))'Image);
     Put_Line (Latin_1.HT & "Gamma rate   =" & Diagostic_Report.Gamma'Image);
     Put_Line (Latin_1.HT & "Epsilon rate =" & Diagostic_Report.Epsilon'Image);
-    Put_Line ("Power consumption =" & Integer (Integer (Diagostic_Report.Gamma) * Integer (Diagostic_Report.Epsilon))'Image);
 
+
+end Puzzle_03_A;
+
+-- $ bin/Puzzle_03_A data/Puzzle_03.txt
+-- (...)
 -- Diagnostic report:
 --      Gamma rate   = 3437
 --      Epsilon rate = 658
 -- Power consumption = 2261546
-
-end Puzzle_03_A;
