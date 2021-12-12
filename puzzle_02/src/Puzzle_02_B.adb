@@ -10,19 +10,19 @@
 with Submarine.Navigation;
 use Submarine.Navigation;
 
+with Submarine.Navigation_IO;
+use Submarine.Navigation_IO;
+
 with Ada.Strings.Bounded;
+
 with Ada.Command_Line;
 use Ada.Command_Line;
+
 with Ada.Characters.Latin_1;
 use Ada.Characters;
--- with Ada.Text_IO.Bounded_IO;
 
 with Ada.Text_IO;
-with Ada.Text_IO.Text_Streams;
 use Ada.Text_IO;
-
-with Ada.Streams;
--- use Ada.Streams;
 
 procedure Puzzle_02_B is
 
@@ -31,8 +31,7 @@ procedure Puzzle_02_B is
 
     -- File and Records definitions
     -- ----------------------------
-    Data_File   : Ada.Text_IO.File_Type;
-    Data_Stream : Text_Streams.Stream_Access;
+    Data_File : Ada.Text_IO.File_Type;
 
     package OS_File_Name is new Ada.Strings.Bounded.Generic_Bounded_Length (1_024);
     Data_File_Name : OS_File_Name.Bounded_String;
@@ -58,22 +57,20 @@ begin
         Mode => Ada.Text_IO.In_File,
         Name => OS_File_Name.To_String (Data_File_Name));
 
-    Data_Stream := Text_Streams.Stream (Data_File);
-
     while not End_Of_File (Data_File) loop
 
-        CourseCommand'Read (Data_Stream, CourseCommand_received);
-
-        -- Ada.Text_IO.Put (CourseCommand_received.Direction'Image);
-        -- Ada.Text_IO.Put (" @" & CourseCommand_received.Amount'Image);
+        get
+           (File => Data_File,
+            Item => CourseCommand_received);
 
         compute_Course
            (Position => Actual_Position,
             Command  => CourseCommand_received);
+
         compute_Aim
            (Aim     => Actual_Aim,
             Command => CourseCommand_received);
-        -- Ada.Text_IO.New_Line;
+
     end loop;
 
     Close (Data_File);
