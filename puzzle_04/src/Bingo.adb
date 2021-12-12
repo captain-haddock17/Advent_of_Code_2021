@@ -68,8 +68,7 @@ package body Bingo is
         MAX_BOARDS_PER_GAME_REACHED : exception;
     begin
         if not (Actual_Boards_in_Play + 1 > Max_Boards_in_Play) then
-            Actual_Boards_in_Play := Actual_Boards_in_Play + 1;
-            -- Actual_Boards_in_Play := @ + 1;
+            Actual_Boards_in_Play := @ + 1;
             Do_we_create_a_New_Board := False; -- Done
 
         else
@@ -77,7 +76,7 @@ package body Bingo is
         end if;
 
         Current_Row := V_Index'First;
-        Put_Line ("New board [" & Actual_Boards_in_Play'Image & "] created.");
+        Put ('[' & Actual_Boards_in_Play'Image & ']');
 
     exception
         when MAX_BOARDS_PER_GAME_REACHED =>
@@ -99,9 +98,7 @@ package body Bingo is
                     H  => i,
                     N  => This_Row (i));
             end loop;
-            -- Put_Line (Latin_1.HT & "New row #" & Current_Row'Image & " stored in Board [" & Actual_Boards_in_Play'Image & "].");
-            Current_Row := Current_Row + 1;
-            -- Current_Row := @ + 1;
+            Current_Row := @ + 1;
 
         else
             raise MAX_OF_ROWS_PER_BOARD_REACHED;
@@ -114,53 +111,27 @@ package body Bingo is
             raise;
     end store_Row;
 
+
     function get_Current_Row return Natural is
     begin
         return Current_Row;
     end get_Current_Row;
+
 
     function get_Actual_nb_of_Boards return Natural is
     begin
         return Actual_Boards_in_Play;
     end get_Actual_nb_of_Boards;
 
+
     -- ----
     -- Game
     -- ----
     protected body Game_Status is separate;
 
-    procedure Charge_Sets (Array_of_Sets : in out Board_Set_Array) is
-        Set_ID      : Natural range 0 .. VH_range'Last := 0;
-        Some_Number : Called_Number;
-
-        use Set_of_Numbers;
-
-    begin
-
-        for V in V_Index loop
-            for R in H_Index loop
-                -- Horizontal scan
-                Set_ID := Set_ID + 1;
-                -- Set_ID := @ +1;
-                Some_Number := Boards_in_game (Set_ID).Cell (V, R);
-                Some_Number := Protected_Board.get_Number
-                      (ID => Actual_Boards_in_Play,
-                       V  => V,
-                       H  => R);
-                Insert (Array_of_Sets (Set_ID).Set, Some_Number);
-                -- Vertical scan
-                Set_ID := Set_ID + 1;
-                -- Set_ID := @ +1;
-                Some_Number := Boards_in_game (Set_ID).Cell (V, R);
-                Some_Number := Protected_Board.get_Number
-                      (ID => Actual_Boards_in_Play,
-                       V  => R,
-                       H  => V);
-                Insert (Array_of_Sets (Set_ID).Set, Some_Number);
-            end loop;
-        end loop;
-
-    end Charge_Sets;
+    procedure Charge_Sets
+       (This_Board :        Board;
+        Some_Sets  : in out Board_Set_Array) is separate;
 
     -- ----------
     -- Jury Actor

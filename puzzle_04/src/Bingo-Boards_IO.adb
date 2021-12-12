@@ -1,8 +1,8 @@
 with Bingo;
 use Bingo;
 
-with Bingo.Data_IO;
-use Bingo.Data_IO;
+-- with Bingo.Data_IO;
+-- use Bingo.Data_IO;
 
 with Ada.Text_IO;
 use Ada.Text_IO;
@@ -39,8 +39,7 @@ package body Bingo.Boards_IO is
 
             if Index <= H_Index'Last then
                 Some_Row (Index) := Number;
-                Index            := Index + 1;
-                -- Index            := @ + 1;
+                Index            := @ + 1;
             else
                 raise MAX_OF_NUMBERS_PER_ROW_REACHED;
             end if;

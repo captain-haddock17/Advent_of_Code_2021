@@ -5,7 +5,9 @@ separate (Bingo)
 -- --------------------
 
 procedure put (S : Set_of_Numbers.Set) is
+
     use Set_of_Numbers;
+
     i : Cursor;
 
     package B_String is new Ada.Strings.Bounded.Generic_Bounded_Length (100 * 4);

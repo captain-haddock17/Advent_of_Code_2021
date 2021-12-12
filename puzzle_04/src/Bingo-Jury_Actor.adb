@@ -28,12 +28,12 @@ begin
                 if Game_Status.Game_FIRST then
                     Game_Status.Game_is_Over;
                     New_Line;
-                    Put_Line (".... Game_is_Over .... [" & Winner_ID'Image & "] FIRST WINNER");
+                    -- Put_Line (".... Game_is_Over .... [" & Winner_ID'Image & "] FIRST WINNER");
                 end if;
                 if Protected_Board.is_Last_Winner then
                     Game_Status.Game_is_Over;
                     New_Line;
-                    Put_Line (".... Game_is_Over .... [" & Winner_ID'Image & "] LAST WINNER");
+                    -- Put_Line (".... Game_is_Over .... [" & Winner_ID'Image & "] LAST WINNER");
                 end if;
 
         or 
@@ -43,7 +43,7 @@ begin
                 Last_Winning_Called_Number_Set : in out Set_of_Numbers.Set) do
                 ID                             := Winner_ID;
                 Last_Winning_Called_Number_Set := Last_Winning_Called_Numbers;
-                Put_Line ("Jury got winner [" & Winner_ID'Image & "]");
+                Put_Line ("Jury got winner [" & Winner_ID'Image & ']');
             end get_Winner_ID;
             -- if Game_Status.Game_FIRST or Protected_Board.is_Last_Winner then
             exit;

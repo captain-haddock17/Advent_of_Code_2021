@@ -79,28 +79,32 @@ begin
         Mode => Ada.Text_IO.In_File,
         Name => OS_File_Name.To_String (Data_File_Name));
 
+
+    Put ("Loading array of boards ");
     while not End_Of_File (Data_File) loop
         Bingo_Data_Stream.Get_Line (Data_File, Some_Data);
         Analyze_String_Received (Some_Data);
     end loop;
 
     Close (Data_File);
-    New_Line;
+    Put_Line (" done.");
 
-    Put_Line ("Launch the Game");
     -- Launch_the_Game
+    Put_Line ("Launch the Game");
     Game_Status.set_Game_FIRST_Winner;
 
     Nb_of_Active_Boards := get_Actual_nb_of_Boards;
 
+    -- Launch all the Board Actor threads
+    Put ("Launching Board agent ");
     for ID in 1 .. Nb_of_Active_Boards loop
         Active_Boards (ID) := new Board_Actor (ID);
     end loop;
+    Put_Line (" done.");
 
-    -- Calling Numbers
+    -- Initialize the list of Calling Numbers with the first 4.
     Put_Line ("Calling Numbers");
     for i in 1 .. Board_Dimension - 1 loop
---    put(i'Image&'-');
         Last_Called_Number := get_Called_Number (i);
         Set_of_Numbers.Insert
            (Container => New_Called_Set,
@@ -109,44 +113,37 @@ begin
     put (New_Called_Set);
     New_Line;
 
+    -- Go through the list of all the Calling Numbers
     for i in Board_Dimension .. get_Actual_Numbers_in_Play loop
         Last_Called_Number := get_Called_Number (i);
         Set_of_Numbers.Insert
            (Container => New_Called_Set,
             New_Item  => Last_Called_Number);
-        Put ("NEW CALLED NUMBER: {" & Last_Called_Number'Image & "}");
-        -- put (New_Called_Set);
-        New_Line;
+        Put ("{" & Last_Called_Number'Image & "}");
+
         -- Send set of Calling Numbers to all boards
         for ID in 1 .. Nb_of_Active_Boards loop
-            -- Put (',');
-            -- New_Line;
-            --      put('[' & ID'Image & ']');
             Active_Boards (ID).Verify (New_Set => New_Called_Set);
         end loop;
--- new_line;
-        -- if Game_Status.is_Game_Over then
-        --     Put_Line ("GAME_STATUS: Game is Over");
-        -- else
-        -- null;
---            Put_Line ("GAME_STATUS: continue ...");
-        -- end if;
 
         exit when Game_Status.is_Game_Over;
     end loop;
 
-    --  Jury.Winning_Board(27);
+    -- Now wait for a winner
+    New_Line;
     Put_Line ("Is there a winner ?");
     Jury.get_Winner_ID
        (ID                             => Winner_ID,
         Last_Winning_Called_Number_Set => Winning_Called_Numbers);
 
+    New_Line;
     Put_Line ("Compute Unchecked_Numbers and report");
     Active_Boards (Winner_ID).Compute_Unchecked_Numbers
        (Sum                            => Sum_of_Unchecked_Numbers,
         Last_Winning_Called_Number_Set => Winning_Called_Numbers);
     Put_Line ("Sum_of_Unchecked_Numbers" & Sum_of_Unchecked_Numbers'Image);
 
+    -- Send to all boards to stop the game.
     for ID in 1 .. Nb_of_Active_Boards loop
         Active_Boards (ID).Stop;
     end loop;

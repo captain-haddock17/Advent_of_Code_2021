@@ -1,5 +1,5 @@
-with Bingo;
-use Bingo;
+-- with Bingo;
+-- use Bingo;
 
 with Bingo.Called_Numbers_IO;
 use Bingo.Called_Numbers_IO;
@@ -40,11 +40,9 @@ package body Bingo.Data_IO is
                 Test   => Inside,
                 First  => Position_F,
                 Last   => Position_L);
+            
             if Position_L > 0 then
-                -- Bingo_Data_Stream.Put (Some_Data);
-                -- New_Line;
                 store_Called_Numbers (Data => Some_Data);
-
             end if;
 
             Find_Token
@@ -53,6 +51,7 @@ package body Bingo.Data_IO is
                 Test   => Inside,
                 First  => Position_F,
                 Last   => Position_L);
+
             if Position_L > 0 then
                 store_Row (Data => Some_Data);
             end if;
