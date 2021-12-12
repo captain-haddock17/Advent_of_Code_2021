@@ -6,18 +6,20 @@
 -- ------------------------------------------------
 -- License : CC-BY-SA
 -- ------------------------------------------------
+with Submarine.Sonar;
+use Submarine.Sonar;
 
-with Ada.Command_Line; use Ada.Command_Line;
-with Ada.Text_IO;      use Ada.Text_IO;
+with Ada.Command_Line;
+use Ada.Command_Line;
+with Ada.Text_IO;
+use Ada.Text_IO;
 with Ada.Strings.Bounded;
 
 procedure Puzzle_01_A is
 
-    Current_Depth, Previous_Depth : Natural := 0;
+    Depth_received : Natural;
 
     DepthCount_Increasing : Natural := 0;
-
-    First_record : Boolean := True;
 
     Data_File : File_Type;
 
@@ -36,16 +38,16 @@ begin
     Data_File_Name := OS_File_Name.To_Bounded_String (Argument (1));
 
     -- Open and read the file
-    Open (File => Data_File, Mode => In_File, Name => OS_File_Name.To_String (Data_File_Name));
+    Open
+       (File => Data_File,
+        Mode => In_File,
+        Name => OS_File_Name.To_String (Data_File_Name));
 
     while not End_Of_File (Data_File) loop
-        Current_Depth := Natural'Value (Get_Line (Data_File));
-        -- put_line(Current_Depth'Image);
-        if Current_Depth > Previous_Depth and not First_record then
-            DepthCount_Increasing := @ + 1;
-        end if;
-        Previous_Depth := Current_Depth;
-        First_record   := False;
+        Depth_received := Natural'Value (Get_Line (Data_File));
+        compute_Depth_Increments
+           (Depth      => Depth_received,
+            Increments => DepthCount_Increasing);
     end loop;
 
     Close (Data_File);

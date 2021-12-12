@@ -1,7 +1,7 @@
-with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Text_IO;
+use Ada.Text_IO;
 
-package body Depth_Filtering is
-
+package body Submarine.Sonar is
 
     subtype Channel_index is Positive range 1 .. Number_of_Measurement_Channels;
 
@@ -10,29 +10,60 @@ package body Depth_Filtering is
         Filtered_Depth : Natural := 0;
     end record;
 
-    type Measurement_Channel_array is array (Channel_index) of Channel_Info;
+    type Measurement_Channel_array is
+       array (Channel_index)
+       of Channel_Info;
 
     -- for filtering Algorithms
     subtype Filter_index is Positive range 1 .. Number_of_Measurement_Filters;
 
+    First_record : Boolean := True;
 
+    Current_Depth, Previous_Depth : Natural := 0;
+    DepthCount_Increasing         : Natural := 0;
 
     Measurement_Channel     : Measurement_Channel_array := (others => (is_Open => False, Filtered_Depth => 0));
-    DepthCount_Increasing   : Natural                   := 0;
     Previous_Filtered_Depth : Natural                   := 0;
 
-    -- ------------------------------------------------------
+    -- --------------------------------------------------------
     -- Compute a modulo from a base of '1' instead of usual '0'
-    -- ------------------------------------------------------
-    function modulo (i : Integer; modulus : Positive) return Natural is
+    -- --------------------------------------------------------
+    function modulo
+       (i       : Integer;
+        modulus : Positive)
+        return Natural
+    is
     begin
         return 1 + ((i - 1) mod modulus);
     end modulo;
 
+    -- -----------------------------------
+    -- Compute depth values and increments
+    -- -----------------------------------
+    procedure compute_Depth_Increments
+       (Depth      :        Natural;
+        Increments : in out Natural)
+    is
+    begin
+        if Depth > Previous_Depth and not First_record then
+            DepthCount_Increasing := @ + 1;
+        end if;
+
+        Previous_Depth := Depth;
+        First_record   := False;
+
+        -- Return expected info
+        Increments := DepthCount_Increasing;
+
+    end compute_Depth_Increments;
+
     -- -------------------------------------------------------------------------
     -- Compute filtered depth values per different channels en filtering history
     -- -------------------------------------------------------------------------
-    procedure compute_Depth_Filter (Pulse : Natural; Depth : Natural; Message_from_filter : in out Message_Strings.Bounded_String)
+    procedure compute_Depth_Filter
+       (Pulse               :        Natural;
+        Depth               :        Natural;
+        Message_from_filter : in out Message_Strings.Bounded_String)
     is
         Active_Channel, Previous_Channel_idx : Channel_index;
         Filter_idx                           : Channel_index;
@@ -61,16 +92,18 @@ package body Depth_Filtering is
                         Measurement_Channel (Idx).Filtered_Depth := @ + Depth;
 
                         Message_from_filter :=
-                           to_Bounded_string ("[" & Character'Val(Character'pos('A')-1+Idx) & "]: " & Measurement_Channel (Idx).Filtered_Depth'Image);
+                           To_Bounded_String
+                              ("[" & Character'Val (Character'Pos ('A') - 1 + Idx) & "]: " &
+                               Measurement_Channel (Idx).Filtered_Depth'Image);
                         if not Measurement_Channel (Previous_Channel_idx).is_Open then
-                            append (Message_from_filter, " (N/A - no previous sum)");
+                            Append (Message_from_filter, " (N/A - no previous sum)");
                         elsif Measurement_Channel (Idx).Filtered_Depth > Previous_Filtered_Depth then
                             DepthCount_Increasing := @ + 1;
-                            append (Message_from_filter, " (increased)");
+                            Append (Message_from_filter, " (increased)");
                         elsif Measurement_Channel (Idx).Filtered_Depth = Previous_Filtered_Depth then
-                            append (Message_from_filter, " (no change)");
+                            Append (Message_from_filter, " (no change)");
                         else
-                            append (Message_from_filter, " (decreased)");
+                            Append (Message_from_filter, " (decreased)");
                         end if;
 
                         Previous_Filtered_Depth := Measurement_Channel (Idx).Filtered_Depth;
@@ -91,4 +124,4 @@ package body Depth_Filtering is
         return DepthCount_Increasing;
     end get_DepthCount_Increasing;
 
-end Depth_Filtering;
+end Submarine.Sonar;

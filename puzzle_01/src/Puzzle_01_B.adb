@@ -7,11 +7,14 @@
 -- License : CC-BY-SA
 -- ------------------------------------------------
 
-with Depth_Filtering; use Depth_Filtering;
+with Submarine.Sonar;
+use Submarine.Sonar;
 
 with Ada.Strings.Bounded;
-with Ada.Text_IO;      use Ada.Text_IO;
-with Ada.Command_Line; use Ada.Command_Line;
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Command_Line;
+use Ada.Command_Line;
 -- with Ada.Text_IO.Bounded_IO;
 
 procedure Puzzle_01_B is
@@ -39,16 +42,22 @@ begin
     Data_File_Name := OS_File_Name.To_Bounded_String (Argument (1));
 
     -- Open and read the file
-    Open (File => Data_File, Mode => In_File, Name => OS_File_Name.To_String (Data_File_Name));
+    Open
+       (File => Data_File,
+        Mode => In_File,
+        Name => OS_File_Name.To_String (Data_File_Name));
 
     while not End_Of_File (Data_File) loop
 
         Depth_received := Natural'Value (Get_Line (Data_File));
         Record_index   := @ + 1;
 
-        compute_Depth_Filter (Pulse => Record_index, Depth => Depth_received, Message_from_filter => Message);
+        compute_Depth_Filter
+           (Pulse               => Record_index,
+            Depth               => Depth_received,
+            Message_from_filter => Message);
 
-        Message_IO.put_Line (Message);
+        Message_IO.Put_Line (Message);
 
     end loop;
 
