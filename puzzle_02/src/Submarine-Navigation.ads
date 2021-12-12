@@ -29,11 +29,11 @@ package Submarine.Navigation is
     -- Main function
     -- -------------
     procedure compute_Course
-       (Position           : in out Position_Info;
-        Command            :        CourseCommand);
+       (Position : in out Position_Info;
+        Command  :        CourseCommand);
     procedure compute_Aim
-       (Aim                : in out Aim_Info;
-        Command            :        CourseCommand);
+       (Aim     : in out Aim_Info;
+        Command :        CourseCommand);
         -- -----------------------------------
         -- Read function for Data Text Streams
         -- -----------------------------------

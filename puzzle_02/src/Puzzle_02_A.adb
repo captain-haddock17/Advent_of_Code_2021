@@ -42,7 +42,6 @@ procedure Puzzle_02_A is
     -- ------------------
     CourseCommand_received : CourseCommand;
 
-
 begin
 
     -- get the filename
@@ -64,14 +63,10 @@ begin
 
         CourseCommand'Read (Data_Stream, CourseCommand_received);
 
-        -- Ada.Text_IO.Put (CourseCommand_received.Direction'Image);
-        -- Ada.Text_IO.Put (" @" & CourseCommand_received.Amount'Image);
-
         compute_Course
-           (Position           => Actual_Position,
-            Command            => CourseCommand_received);
+           (Position => Actual_Position,
+            Command  => CourseCommand_received);
 
-        Ada.Text_IO.New_Line;
     end loop;
 
     Close (Data_File);
@@ -83,4 +78,12 @@ begin
 
     Put_Line ("Position redux = " & Distance (Actual_Position.Forward * Actual_Position.Depth)'Image); -- 2147104
 
+
 end Puzzle_02_A;
+
+-- $ bin/Puzzle_02_A data/Puzzle_02.txt
+-- New Position :
+-- 	Horizontal : 1832
+-- 	Depth      : 1172
+-- Position redux =  2147104
+-- #########################

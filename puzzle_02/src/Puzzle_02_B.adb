@@ -68,11 +68,11 @@ begin
         -- Ada.Text_IO.Put (" @" & CourseCommand_received.Amount'Image);
 
         compute_Course
-           (Position           => Actual_Position,
-            Command            => CourseCommand_received);
+           (Position => Actual_Position,
+            Command  => CourseCommand_received);
         compute_Aim
-           (Aim                => Actual_Aim,
-            Command            => CourseCommand_received);
+           (Aim     => Actual_Aim,
+            Command => CourseCommand_received);
         -- Ada.Text_IO.New_Line;
     end loop;
 
@@ -87,7 +87,9 @@ begin
     Put_Line ("Position redux = " & Distance (Actual_Position.Forward * Actual_Position.Depth)'Image); -- 2147104
     Put_Line ("Aim      redux = " & Distance (Actual_Position.Forward * Actual_Aim.Depth)'Image); -- 2044620088
 
--- #########################
+end Puzzle_02_B;
+
+-- $ bin/Puzzle_02_B data/Puzzle_02.txt
 -- New Position & Aim :
 --      Horizontal : 1832
 --      Depth      : 1172
@@ -95,6 +97,3 @@ begin
 --      Aim Depth  : 1116059
 -- Position redux =  2147104
 -- Aim      redux =  2044620088
--- #########################
-
-end Puzzle_02_B;

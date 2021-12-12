@@ -1,5 +1,6 @@
 with Ada.Streams;
 -- use Ada.Streams;
+
 with Ada.Characters.Latin_1;
 use Ada.Characters;
 
@@ -52,8 +53,8 @@ package body Submarine.Navigation is
     end Read_Distance;
 
     procedure compute_Course
-       (Position           : in out Position_Info;
-        Command            :        CourseCommand)
+       (Position : in out Position_Info;
+        Command  :        CourseCommand)
     is
 
     -- Definition of the Positional system
@@ -73,8 +74,8 @@ package body Submarine.Navigation is
     end compute_Course;
 
     procedure compute_Aim
-       (Aim                : in out Aim_Info;
-        Command            :        CourseCommand)
+       (Aim     : in out Aim_Info;
+        Command :        CourseCommand)
     is
 
     -- Definition of the Positional system
