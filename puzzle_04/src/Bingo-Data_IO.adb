@@ -24,19 +24,16 @@ use Ada;
 
 package body Bingo.Data_IO is
 
-    procedure Analyse_String_Received (Some_Data : Bingo_Data_String.Bounded_String) is
+    procedure Analyze_String_Received (Some_Data : Bingo_Data_String.Bounded_String) is
         Position_F : Positive;
         Position_L : Natural;
 
         use Bingo_Data_String;
 
     begin
-
-        if Length (Some_Data) = 0 then
+        if Bingo_Data_String.Length (Some_Data) = 0 then
             Do_we_create_a_New_Board := True;
-
         else
-
             Find_Token
                (Source => Some_Data,
                 Set    => To_Set (','),
@@ -44,8 +41,8 @@ package body Bingo.Data_IO is
                 First  => Position_F,
                 Last   => Position_L);
             if Position_L > 0 then
-                Bingo_Data_Stream.Put (Some_Data);
-                New_line;
+                -- Bingo_Data_Stream.Put (Some_Data);
+                -- New_Line;
                 store_Called_Numbers (Data => Some_Data);
 
             end if;
@@ -61,7 +58,6 @@ package body Bingo.Data_IO is
             end if;
 
         end if;
-
-    end Analyse_String_Received;
+    end Analyze_String_Received;
 
 end Bingo.Data_IO;

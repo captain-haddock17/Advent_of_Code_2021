@@ -10,14 +10,13 @@ use Ada;
 
 package body Bingo.Boards_IO is
 
-    
     use Bingo_Data_String;
 
     procedure store_Row (Data : in Bingo_Data_String.Bounded_String) is
 
         this_Data     : Bingo_Data_String.Bounded_String;
         Some_Row      : Row_array;
-        Index         : Positive := Index_in_Row'First;
+        Index         : Positive := H_Index'First;
         Number        : Called_Number;
         end_of_Number : Positive;
 
@@ -29,7 +28,7 @@ package body Bingo.Boards_IO is
             create_New_Board;
         end if;
 
-        Index     := Index_in_Row'First;
+        Index := H_Index'First;
 
         while Length (this_Data) > 0 loop
 
@@ -38,9 +37,10 @@ package body Bingo.Boards_IO is
                 Item => Number,
                 Last => end_of_Number);
 
-            if Index <= Index_in_Row'Last then
+            if Index <= H_Index'Last then
                 Some_Row (Index) := Number;
-                Index            := @ + 1;
+                Index            := Index + 1;
+                -- Index            := @ + 1;
             else
                 raise MAX_OF_NUMBERS_PER_ROW_REACHED;
             end if;

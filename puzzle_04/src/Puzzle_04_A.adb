@@ -25,6 +25,9 @@ use Bingo.Boards_IO;
 with Ada.Command_Line;
 use Ada.Command_Line;
 
+with Ada.Containers;
+use Ada.Containers;
+
 with Ada.Text_IO;
 use Ada.Text_IO;
 -- with Ada.Text_IO.Bounded_IO;
@@ -52,6 +55,15 @@ procedure Puzzle_04_A is
 
     Some_Data : Bingo_Data_String.Bounded_String;
 
+    Nb_of_Active_Boards : Board_ID;
+    Active_Boards       : array (Board_ID)
+    of Board_Actor_Ptr;
+
+    New_Called_Set, Winning_Called_Numbers : Set_of_Numbers.Set (Count_Type (Max_NumberOutputs_in_Play));
+    Last_Called_Number                     : Called_Number;
+
+    Winner_ID                : Natural range 0 .. Board_ID'Last := 0;
+    Sum_of_Unchecked_Numbers : Natural                          := 0;
 begin
 
     -- get the filename
@@ -69,27 +81,92 @@ begin
 
     while not End_Of_File (Data_File) loop
         Bingo_Data_Stream.Get_Line (Data_File, Some_Data);
-        Analyse_String_Received (Some_Data);
+        Analyze_String_Received (Some_Data);
     end loop;
-
-    Find_Winning_Board;
 
     Close (Data_File);
     New_Line;
 
-    -- compute_Diagnostics;
+    Put_Line ("Launch the Game");
+    -- Launch_the_Game
+    Game_Status.set_Game_FIRST_Winner;
 
-    -- compute_Report (Report => Diagostic_Report);
+    Nb_of_Active_Boards := get_Actual_nb_of_Boards;
+
+    for ID in 1 .. Nb_of_Active_Boards loop
+        Active_Boards (ID) := new Board_Actor (ID);
+    end loop;
+
+    -- Calling Numbers
+    Put_Line ("Calling Numbers");
+    for i in 1 .. Board_Dimension - 1 loop
+--    put(i'Image&'-');
+        Last_Called_Number := get_Called_Number (i);
+        Set_of_Numbers.Insert
+           (Container => New_Called_Set,
+            New_Item  => Last_Called_Number);
+    end loop;
+    put (New_Called_Set);
+    New_Line;
+
+    for i in Board_Dimension .. get_Actual_Numbers_in_Play loop
+        Last_Called_Number := get_Called_Number (i);
+        Set_of_Numbers.Insert
+           (Container => New_Called_Set,
+            New_Item  => Last_Called_Number);
+        Put ("NEW CALLED NUMBER: {" & Last_Called_Number'Image & "}");
+        -- put (New_Called_Set);
+        New_Line;
+        -- Send set of Calling Numbers to all boards
+        for ID in 1 .. Nb_of_Active_Boards loop
+            -- Put (',');
+            -- New_Line;
+            --      put('[' & ID'Image & ']');
+            Active_Boards (ID).Verify (New_Set => New_Called_Set);
+        end loop;
+-- new_line;
+        -- if Game_Status.is_Game_Over then
+        --     Put_Line ("GAME_STATUS: Game is Over");
+        -- else
+        -- null;
+--            Put_Line ("GAME_STATUS: continue ...");
+        -- end if;
+
+        exit when Game_Status.is_Game_Over;
+    end loop;
+
+    --  Jury.Winning_Board(27);
+    Put_Line ("Is there a winner ?");
+    Jury.get_Winner_ID
+       (ID                             => Winner_ID,
+        Last_Winning_Called_Number_Set => Winning_Called_Numbers);
+
+    Put_Line ("Compute Unchecked_Numbers and report");
+    Active_Boards (Winner_ID).Compute_Unchecked_Numbers
+       (Sum                            => Sum_of_Unchecked_Numbers,
+        Last_Winning_Called_Number_Set => Winning_Called_Numbers);
+    Put_Line ("Sum_of_Unchecked_Numbers" & Sum_of_Unchecked_Numbers'Image);
+
+    for ID in 1 .. Nb_of_Active_Boards loop
+        Active_Boards (ID).Stop;
+    end loop;
 
     -- Output the result
-    Put_Line ("Diagnostic report:");
-    -- Put_Line (Latin_1.HT & "Gamma rate   =" & Diagostic_Report.Gamma'Image);
-    -- Put_Line (Latin_1.HT & "Epsilon rate =" & Diagostic_Report.Epsilon'Image);
-    -- Put_Line ("Power consumption =" & Integer (Integer (Diagostic_Report.Gamma) * Integer (Diagostic_Report.Epsilon))'Image);
-
--- Diagnostic report:
---      Gamma rate   = 3437
---      Epsilon rate = 658
--- Power consumption = 2261546
+    if Game_Status.Has_No_Winner then
+        Put_Line ("Winner ID:" & Winner_ID'Image);
+    end if;
+    Put_Line ("Last Called Number:" & Last_Called_Number'Image); --24
+    Put_Line ("Magic Result Number:" & Natural (Last_Called_Number * Sum_of_Unchecked_Numbers)'Image); -- 4512
 
 end Puzzle_04_A;
+
+-- $ bin/Puzzle_04_A data/Puzzle_04.txt
+-- (...)
+-- Jury got winner [ 37]
+-- End of game.
+-- Compute Unchecked_Numbers and report
+-- Agregate all numbers in this board
+-- Sum_of_Unchecked_Numbers 809
+-- Last Called Number: 64
+-- Magic Result Number: 51776
+

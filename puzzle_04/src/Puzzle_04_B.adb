@@ -2,24 +2,44 @@
 -- Author : William J. FRANCK
 -- e-Mail : william@sterna.io
 --
--- Initial creation date : 2021-12-02
+-- Initial creation date : 2021-12-04
 -- ------------------------------------------------
 -- License : CC-BY-SA
 -- ------------------------------------------------
 
-with Submarine.Binary_Diagnostic;
-use Submarine.Binary_Diagnostic;
+-- Specif Libraries
+with Bingo;
+use Bingo;
 
-with Ada.Strings.Bounded;
+with Bingo.Data_IO;
+use Bingo.Data_IO;
+
+with Bingo.Called_Numbers_IO;
+use Bingo.Called_Numbers_IO;
+
+with Bingo.Boards_IO;
+use Bingo.Boards_IO;
+
+-- Common Ada Libraries
+
 with Ada.Command_Line;
 use Ada.Command_Line;
 
+with Ada.Containers;
+use Ada.Containers;
+
 with Ada.Text_IO;
 use Ada.Text_IO;
+-- with Ada.Text_IO.Bounded_IO;
+
+with Ada.Strings;
+use Ada.Strings;
+with Ada.Strings.Bounded;
+
 with Ada.Characters.Latin_1;
 use Ada.Characters;
 
-procedure Puzzle_03_B is
+procedure Puzzle_04_B is
 
     -- File and Records definitions
     -- ----------------------------
@@ -30,15 +50,20 @@ procedure Puzzle_03_B is
 
     Missing_FileName : exception;
 
-    Data_Length     : Natural                                                := 0;
-    Diagnostic_Data : String (1 .. Nb_of_Binary_diagnostic_Channels + 2)     := (others => '0');
-    Diagnostic_Str  : String (1 .. Nb_of_Binary_diagnostic_Channels + 2 + 3) := (others => '0');
-    Diagnostic_Val  : Binary_diagnostic;
+    use Bingo_Data_String;
+    use Bingo.Data_IO.Bingo_Data_Stream;
 
-    Diagostic_Report : Failure_Rate := (Gamma => 0, Epsilon => 0);
+    Some_Data : Bingo_Data_String.Bounded_String;
 
-    Life_support_rating : Rating := 0;
+    Nb_of_Active_Boards : Board_ID;
+    Active_Boards       : array (Board_ID)
+    of Board_Actor_Ptr;
 
+    New_Called_Set, Winning_Called_Numbers : Set_of_Numbers.Set (Count_Type (Max_NumberOutputs_in_Play));
+    Last_Called_Number                     : Called_Number;
+
+    Winner_ID                : Natural range 0 .. Board_ID'Last := 0;
+    Sum_of_Unchecked_Numbers : Natural                          := 0;
 begin
 
     -- get the filename
@@ -55,40 +80,111 @@ begin
         Name => OS_File_Name.To_String (Data_File_Name));
 
     while not End_Of_File (Data_File) loop
-
-        Ada.Text_IO.Get_Line (Data_File, Diagnostic_Data, Data_Length);
-        Put ('.');
-        Diagnostic_Str                        := (others => ' ');
-        Diagnostic_Str (1 .. Data_Length + 3) := "2#" & Diagnostic_Data (1 .. Data_Length) & "#";
-        Diagnostic_Val                        := Binary_diagnostic'Value (Diagnostic_Str);
-        -- Put_Line (Diagnostic_Val'Image);
-        -- Put_Line (Diagnostic_Str);
-
-        store_Diagnostic (Binary_Puzzle => Diagnostic_Val);
-
-        -- Ada.Text_IO.New_Line;
+        Bingo_Data_Stream.Get_Line (Data_File, Some_Data);
+        Analyze_String_Received (Some_Data);
     end loop;
 
     Close (Data_File);
     New_Line;
 
-    compute_Diagnostics;
+    Put_Line ("Launch the Game");
+    -- Launch_the_Game
+    Game_Status.set_Game_LAST_Winner;
+    -- Game_Status.set_Game_FIRST_Winner;
+    Nb_of_Active_Boards := get_Actual_nb_of_Boards;
 
-    compute_Report (Report => Diagostic_Report);
+    for ID in 1 .. Nb_of_Active_Boards loop
+        Active_Boards (ID) := new Board_Actor (ID);
+    end loop;
 
-    report_Life_support_rating (Life_support => Life_support_rating);
+    -- Calling Numbers
+    Put_Line ("Calling Numbers");
+    for i in 1 .. Board_Dimension - 1 loop
+--    put(i'Image&'-');
+        Last_Called_Number := get_Called_Number (i);
+        Set_of_Numbers.Insert
+           (Container => New_Called_Set,
+            New_Item  => Last_Called_Number);
+    end loop;
+
+    for i in Board_Dimension .. get_Actual_Numbers_in_Play loop
+        Last_Called_Number := get_Called_Number (i);
+        Set_of_Numbers.Insert
+           (Container => New_Called_Set,
+            New_Item  => Last_Called_Number);
+--        New_Line;
+        -- Put ("NEW CALLED NUMBER:");
+        put( "{" & Last_Called_Number'Image & "}");
+        -- put (New_Called_Set);
+        --New_Line;
+        -- Send set of Calling Numbers to all boards
+        -- Put_Line ("Number of Winners" & Protected_Board.get_Nb_of_Winners'Image);
+        for ID in 1 .. Nb_of_Active_Boards loop
+            -- Put (',');
+            -- New_Line;
+            --  put('[' & ID'Image & ']');
+            -- select 
+                Active_Boards (ID).Verify (New_Set => New_Called_Set);
+            -- else
+            --     exit;
+            --     put_line("==== "& ID'Image & "is Closed");
+            -- end select;
+
+        end loop;
+
+        -- for ID in 1 .. Nb_of_Active_Boards loop
+        --     -- Put (',');
+        --     -- New_Line;
+        --     --      put('[' & ID'Image & ']');
+        --     Active_Boards (ID).Done;
+        -- end loop;
+
+          -- Put_Line ("Number of Winners" & Protected_Board.get_Nb_of_Winners'Image);
+-- new_line;
+        -- if Protected_Board.is_Last_Winner then
+        --     Put_Line ("GAME_STATUS: IS LAST WINNER");
+        --     exit;
+        -- end if;
+        --  if Game_Status.is_Game_Over then
+        --      Put_Line ("GAME_STATUS: Game is Over");
+        -- else
+        --     Put_Line ("GAME_STATUS: continue ...");
+        --  end if;
+
+         exit when Game_Status.is_Game_Over;
+    end loop;
+
+    --  Jury.Winning_Board(27);
+    Put_Line ("Is there a winner ?");
+    Jury.get_Winner_ID
+       (ID                             => Winner_ID,
+        Last_Winning_Called_Number_Set => Winning_Called_Numbers);
+
+    Put_Line ("Compute Unchecked_Numbers and report");
+    Active_Boards (Winner_ID).Compute_Unchecked_Numbers
+       (Sum                            => Sum_of_Unchecked_Numbers,
+        Last_Winning_Called_Number_Set => Winning_Called_Numbers);
+    Put_Line ("Sum_of_Unchecked_Numbers" & Sum_of_Unchecked_Numbers'Image);
+
+    -- for ID in 1 .. Nb_of_Active_Boards loop
+    --     Active_Boards (ID).Stop;
+    -- end loop;
 
     -- Output the result
-    Put_Line ("Diagnostic report:");
-    Put_Line (Latin_1.HT & "Gamma rate   =" & Diagostic_Report.Gamma'Image);
-    Put_Line (Latin_1.HT & "Epsilon rate =" & Diagostic_Report.Epsilon'Image);
-    Put_Line ("Power consumption =" & Integer (Integer (Diagostic_Report.Gamma) * Integer (Diagostic_Report.Epsilon))'Image);
+    if Game_Status.Has_No_Winner then
+        Put_Line ("Winner ID:" & Winner_ID'Image);
+    end if;
+    Put_Line ("Last Called Number:" & Last_Called_Number'Image); -- Sample.txt: 13
+    Put_Line ("Magic Result Number:" & Natural (Last_Called_Number * Sum_of_Unchecked_Numbers)'Image); -- Sample.txt: 1924
 
--- Diagnostic report:
---      Gamma rate   = 3437
---      Epsilon rate = 658
--- Power consumption = 2261546
+end Puzzle_04_B;
 
-    Put_Line ("Submarine's life support rating :" & Life_support_rating'Image);
-
-end Puzzle_03_B;
+-- $ bin/Puzzle_04_A data/Puzzle_04.txt
+-- (...)
+-- Jury got winner [ 35]
+-- Compute Unchecked_Numbers and report
+-- End of game.
+-- Agregate all numbers in this board
+-- Sum_of_Unchecked_Numbers 170
+-- Last Called Number: 99
+-- Magic Result Number: 16830

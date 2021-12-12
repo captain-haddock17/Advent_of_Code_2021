@@ -32,6 +32,6 @@ package Bingo.Data_IO is
     -- -----------------------------
     -- Analyse incoming Data from file and store `Called_Number` or Board's `Row`
     -- -----------------------------
-    procedure Analyse_String_Received (Some_Data : Bingo_Data_String.Bounded_String);
+    procedure Analyze_String_Received (Some_Data : Bingo_Data_String.Bounded_String);
 
 end Bingo.Data_IO;
