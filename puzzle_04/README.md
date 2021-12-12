@@ -2,7 +2,7 @@
 
 # Structure of the source files
 - Code with some I/O are organized in packages with name suffix `_IO`
-- implementation code (`body') are put in `separate` files to keep the main *package body* files tidy 😎 
+- implementation code (`body`) are put in `separate` files to keep the main *package body* files tidy 😎 
 
 ## Loading of the data file
 - Standard library `Ada.Text_IO.Bounded_IO` is used to get each Data line. 
