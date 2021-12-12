@@ -5,7 +5,7 @@ project Puzzle_03 is
    for Object_Dir use "obj";
    for Create_Missing_Dirs use "True";
    for Exec_Dir use "bin";
-   for Main use ("puzzle_03.adb");
+   for Main use ("Puzzle_03_A.adb","Puzzle_03_B.adb");
 
    type Enabled_Kind is ("enabled", "disabled");
    Compile_Checks : Enabled_Kind := External ("PUZZLE_03_COMPILE_CHECKS", "disabled");
@@ -71,11 +71,32 @@ project Puzzle_03 is
         Style_Checks_Switches &
         Contracts_Switches &
         ("-gnatw.X", -- Disable warnings for No_Exception_Propagation
-         "-gnatQ");  -- Don't quit. Generate ALI and tree files even if illegalities
+         "-gnatQ",   -- Don't quit. Generate ALI and tree files even if illegalities
+         "-gnat2022");
    end Compiler;
 
    package Binder is
       for Switches ("Ada") use ("-Es"); --  Symbolic traceback
    end Binder;
+
+   package Naming is
+      for Casing use "mixedcase";
+   end Naming;
+
+    package Pretty_Printer is
+    for Default_switches ("Ada") 
+        use("--indentation=4",
+	        "--max-line-length=132",
+	        "--pragma-upper-case",
+	        "--enum-upper-case",
+	        "--vertical-enum-types",
+	        "--vertical-array-types" ,
+            "--indent-named-statements",
+            "--no-compact",
+            "--call-threshold=1",
+            "--par-threshold=1",
+	        "--use-on-new-line",
+            "--vertical-case-alternatives");
+    end Pretty_Printer;   
 
 end Puzzle_03;
