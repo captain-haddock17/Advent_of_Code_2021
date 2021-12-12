@@ -1,9 +1,6 @@
 with Bingo;
 use Bingo;
 
--- with Bingo.Data_IO;
--- use Bingo.Data_IO;
-
 with Ada.Text_IO;
 use Ada.Text_IO;
 use Ada;

@@ -1,5 +1,3 @@
--- with Ada.Containers;
-
 with Ada.Text_IO;
 use Ada.Text_IO;
 

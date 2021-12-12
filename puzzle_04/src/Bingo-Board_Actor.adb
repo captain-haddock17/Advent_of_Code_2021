@@ -32,8 +32,6 @@ begin
             end Verify; -- return to the caller
 
                 for i in VH_range loop
-                    -- put (Array_of_Sets (i));
-                    -- New_Line;
                     if not Array_of_Sets (i).Won then
 
                         is_Winner := Is_Subset
@@ -42,19 +40,12 @@ begin
                         if is_Winner then
                             Array_of_Sets (i).Won := True;
                             Last_Winner_Set_index := i;
-                            -- Put_Line (Indent & "THERE IS A WINNER on board [" & ID'Image & "] index (" & i'Image & ")");
+
                             Jury.Winning_Board (ID, Called_Numbers);
-                            -- if Game_Status.is_Game_Over then -- or Protected_Board.is_Last_Winner then
-                            -- if Game_Status.is_Game_Over or Protected_Board.is_Last_Winner then
-                                -- exit;
-                            --  end if;
                         end if;
                     end if;
                 end loop;
-        or -- when Game_Status.is_Game_Over =>
-            accept Done do
-                null; -- synchro
-            end Done;
+
         or -- when Game_Status.is_Game_Over =>
             accept Compute_Unchecked_Numbers
                (Sum                            : out Natural;
@@ -89,6 +80,7 @@ begin
                     Sum := Sum_of_unchecked;
                 end;
             end Compute_Unchecked_Numbers; -- return to the caller
+
         or
             -- when Game_Status.is_Game_Over =>
             accept Stop do

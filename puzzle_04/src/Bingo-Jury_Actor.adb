@@ -28,12 +28,12 @@ begin
                 if Game_Status.Game_FIRST then
                     Game_Status.Game_is_Over;
                     New_Line;
-                    -- Put_Line (".... Game_is_Over .... [" & Winner_ID'Image & "] FIRST WINNER");
+                    Put_Line (".... Game_is_Over .... [" & Winner_ID'Image & "] is the FIRST winning board.");
                 end if;
                 if Protected_Board.is_Last_Winner then
                     Game_Status.Game_is_Over;
                     New_Line;
-                    -- Put_Line (".... Game_is_Over .... [" & Winner_ID'Image & "] LAST WINNER");
+                    Put_Line (".... Game_is_Over .... [" & Winner_ID'Image & "] is the LAST winning board.");
                 end if;
 
         or 

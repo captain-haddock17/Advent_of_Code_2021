@@ -4,7 +4,7 @@ use Ada.Containers;
 with Ada.Containers.Bounded_Ordered_Sets;
 
 with Ada.Strings.Bounded;
-with Ada.Text_IO.Bounded_IO;
+-- with Ada.Text_IO.Bounded_IO;
 
 package Bingo is
 
@@ -133,7 +133,6 @@ package Bingo is
 
     task type Board_Actor (ID : Board_ID) is
         entry Verify (New_Set : Set_of_Numbers.Set);
-        entry Done;
         entry Compute_Unchecked_Numbers
            (Sum                            : out Natural;
             Last_Winning_Called_Number_Set :     Set_of_Numbers.Set);

@@ -1,6 +1,3 @@
--- with Bingo;
--- use Bingo;
-
 with Bingo.Called_Numbers_IO;
 use Bingo.Called_Numbers_IO;
 
@@ -19,8 +16,6 @@ use Ada.Strings.Bounded;
 with Ada.Text_IO;
 use Ada.Text_IO;
 use Ada;
-
--- with Ada.Text_IO.Bounded_IO;
 
 package body Bingo.Data_IO is
 
