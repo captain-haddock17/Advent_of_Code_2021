@@ -28,4 +28,4 @@
 #### SHARED ACCESS of data
 - [Protected ressources](http://www.ada-auth.org/standards/12rm/html/RM-9-4.html), avoiding races between threads
   - *Game Status*
-  - *Board of called Numbers*
+  
