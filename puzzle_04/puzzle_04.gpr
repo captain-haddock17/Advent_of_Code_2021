@@ -5,7 +5,7 @@ project Puzzle_04 is
    for Object_Dir use "obj";
    for Create_Missing_Dirs use "True";
    for Exec_Dir use "bin";
--  for Main use ("Puzzle_04.adb");
+   for Main use ("Puzzle_04.adb");
 
    type Enabled_Kind is ("enabled", "disabled");
    Compile_Checks : Enabled_Kind := External ("PUZZLE_04_COMPILE_CHECKS", "disabled");
