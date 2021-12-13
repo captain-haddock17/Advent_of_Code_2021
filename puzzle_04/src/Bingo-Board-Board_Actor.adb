@@ -60,7 +60,6 @@ begin
                (Sum                            : out Natural;
                 Last_Winning_Called_Number_Set :     Set_of_Numbers.Set) do
 
-                put_line("Agregate all numbers in this board");
                 -- Agregate all numbers in this board
                 Clear (Numbers_in_Board);
                 for i in H_Index loop

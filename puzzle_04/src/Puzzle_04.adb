@@ -26,10 +26,10 @@ use Bingo.Called_Numbers_IO;
 with Bingo.Boards_IO;
 use Bingo.Boards_IO;
 
--- Common Ada Libraries
-with Ada.Command_Line;
-use Ada.Command_Line;
+with Command_Line;
+use Command_Line;
 
+-- Common Ada Libraries
 with Ada.Containers;
 use Ada.Containers;
 
@@ -44,14 +44,16 @@ with Ada.Strings.Bounded;
 with Ada.Characters.Latin_1;
 use Ada.Characters;
 
-procedure Puzzle_04_B is
+procedure Puzzle_04 is
+
+    Run_Args : Command_Line.Program_args;
+
+    use OS_File_Name;
 
     -- File and Records definitions
     -- ----------------------------
     Data_File : Ada.Text_IO.File_Type;
 
-    package OS_File_Name is new Ada.Strings.Bounded.Generic_Bounded_Length (1_024);
-    Data_File_Name : OS_File_Name.Bounded_String;
 
     Missing_FileName : exception;
 
@@ -73,18 +75,13 @@ procedure Puzzle_04_B is
     Sum_of_Unchecked_Numbers : Natural                          := 0;
 begin
 
-    -- get the filename
-    if Argument_Count /= 1 then
-        raise Missing_FileName;
-    end if;
-
-    Data_File_Name := OS_File_Name.To_Bounded_String (Argument (1));
+    Command_Line.get_args (args => Run_Args);
 
     -- Open and read the file
     Ada.Text_IO.Open
        (File => Data_File,
         Mode => Ada.Text_IO.In_File,
-        Name => OS_File_Name.To_String (Data_File_Name));
+        Name => OS_File_Name.To_String (Run_Args.Data_File_Name));
 
     Put ("Loading array of boards ");
     while not End_Of_File (Data_File) loop
@@ -97,8 +94,11 @@ begin
 
     -- Launch_the_Game
     Put_Line ("Launch the Game");
-    Game_Status.set_Game_LAST_Winner;
-    
+    case Run_Args.Winner is
+        when FIRST => Game_Status.set_Game_FIRST_Winner;
+        when LAST => Game_Status.set_Game_LAST_Winner;
+    end case;
+
     Nb_of_Active_Boards := get_Actual_nb_of_Boards;
 
     -- Launch the Jury Actor thread
@@ -132,8 +132,8 @@ begin
 
         -- Send set of Calling Numbers to all boards
         for ID in 1 .. Nb_of_Active_Boards loop
-                Active_Boards (ID).Verify (New_Set => New_Called_Set);
-                exit when Game_Status.is_Game_Over;
+            Active_Boards (ID).Verify (New_Set => New_Called_Set);
+            exit when Game_Status.is_Game_Over;
         end loop;
 
         -- Synchronize: Wait till every actor has finished verifying
@@ -167,17 +167,39 @@ begin
     if Game_Status.Has_No_Winner then
         Put_Line ("Winner ID:" & Winner_ID'Image);
     end if;
-    Put_Line ("Last Called Number:" & Last_Called_Number'Image); -- Sample.txt: 13
-    Put_Line ("Magic Result Number:" & Natural (Last_Called_Number * Sum_of_Unchecked_Numbers)'Image); -- Sample.txt: 1924
+    Put_Line ("Last Called Number:" & Last_Called_Number'Image); --24
+    Put_Line ("Magic Result Number:" & Natural (Last_Called_Number * Sum_of_Unchecked_Numbers)'Image); -- 4512
 
-end Puzzle_04_B;
+end Puzzle_04;
 
--- $ bin/Puzzle_04_A data/Puzzle_04.txt
--- (...)
--- Jury got winner [ 35]
--- Compute Unchecked_Numbers and report
+-- $ bin/Puzzle_04 FIRST data/Puzzle_04.txt
+-- Loading array of boards  done.
+-- Launch the Game
+-- Installing the Jury ...
+-- Launching Board agent .................................................................................................... done.
+-- Calling Numbers
+-- .... Game_is_Over .... [ 37] is the FIRST winning board.
+-- Is there a winner ?
+-- Jury got winner [ 37]
 -- End of game.
--- Agregate all numbers in this board
+-- Compute Unchecked_Numbers and report
+-- Sum_of_Unchecked_Numbers 809
+-- Last Called Number: 64
+-- Magic Result Number: 51776
+
+
+-- $ bin/Puzzle_04 LAST data/Puzzle_04.txt
+-- Loading array of boards  done.
+-- Launch the Game
+-- Installing the Jury ...
+-- Launching Board agent .................................................................................................... done.
+-- Calling Numbers
+-- .... Game_is_Over .... [ 35] is the LAST winning board.
+-- Is there a winner ?
+-- Jury got winner [ 35]
+-- End of game.
+-- Compute Unchecked_Numbers and report
 -- Sum_of_Unchecked_Numbers 170
 -- Last Called Number: 99
 -- Magic Result Number: 16830
+
