@@ -27,7 +27,6 @@ with Bingo.Boards_IO;
 use Bingo.Boards_IO;
 
 -- Common Ada Libraries
-
 with Ada.Command_Line;
 use Ada.Command_Line;
 
@@ -87,7 +86,6 @@ begin
         Mode => Ada.Text_IO.In_File,
         Name => OS_File_Name.To_String (Data_File_Name));
 
-
     Put ("Loading array of boards ");
     while not End_Of_File (Data_File) loop
         Bingo_Data_Stream.Get_Line (Data_File, Some_Data);
@@ -121,8 +119,8 @@ begin
            (Container => New_Called_Set,
             New_Item  => Last_Called_Number);
     end loop;
-    put (New_Called_Set);
-    New_Line;
+    -- Bingo.Called_Numbers_IO.put (New_Called_Set);
+    -- New_Line;
 
     -- Go through the list of all the Calling Numbers
     for i in Board_Dimension .. get_Actual_Numbers_in_Play loop
@@ -130,11 +128,17 @@ begin
         Set_of_Numbers.Insert
            (Container => New_Called_Set,
             New_Item  => Last_Called_Number);
-        Put ("{" & Last_Called_Number'Image & "}");
+        -- Put ("{" & Last_Called_Number'Image & "}");
 
         -- Send set of Calling Numbers to all boards
         for ID in 1 .. Nb_of_Active_Boards loop
             Active_Boards (ID).Verify (New_Set => New_Called_Set);
+            exit when Game_Status.is_Game_Over;
+        end loop;
+
+        -- Synchronize: Wait till every actor has finished verifying
+        for ID in 1 .. Nb_of_Active_Boards loop
+            Active_Boards (ID).RdV;
         end loop;
 
         exit when Game_Status.is_Game_Over;

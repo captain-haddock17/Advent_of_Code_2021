@@ -1,6 +1,9 @@
 with Bingo;
 use Bingo;
 
+with Ada.Strings.Bounded;
+use Ada.Strings.Bounded;
+
 with Ada.Text_IO;
 use Ada;
 
@@ -34,5 +37,12 @@ package body Bingo.Called_Numbers_IO is
         end loop;
 
     end store_Called_Numbers;
+
+
+    -- ---------------
+    -- Sets of Numbers
+    -- ---------------
+    procedure put (S : Set_of_Numbers.Set) is separate;
+
 
 end Bingo.Called_Numbers_IO;

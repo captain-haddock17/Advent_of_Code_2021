@@ -16,9 +16,9 @@ task body Board_Actor is
     
 begin
 
-    -- Load data from Board array
-    Put ('.');
+    Put ('.'); -- trace the startup of the thread
 
+    -- Load data from Board array
     Charge_Sets (Boards_in_game (ID), Array_of_Sets);
 
     -- Waiting for a Called_Number
@@ -33,23 +33,34 @@ begin
                 if not Array_of_Sets (i).Won then
 
                     is_Winner := Is_Subset
-                            (Subset => Array_of_Sets (i).Set,
+                           (Subset => Array_of_Sets (i).Set,
                            Of_Set => Called_Numbers);
                     if is_Winner then
                         Array_of_Sets (i).Won := True;
                         Last_Winner_Set_index := i;
-
                         Jury.Winning_Board (ID, Called_Numbers);
                     end if;
                 end if;
---                delay (0.1);
+                -- exit when Game_Status.is_Game_Over;
             end loop;
+
+        or when Game_Status.is_Game_Over =>
+            accept Verify (New_Set : Set_of_Numbers.Set) do
+                null;
+            end Verify;
+            -- exit;
+
+        or 
+            accept RdV do
+                null; -- synchronize
+            end RdV;
 
         or -- when Game_Status.is_Game_Over =>
             accept Compute_Unchecked_Numbers
                (Sum                            : out Natural;
                 Last_Winning_Called_Number_Set :     Set_of_Numbers.Set) do
 
+                put_line("Agregate all numbers in this board");
                 -- Agregate all numbers in this board
                 Clear (Numbers_in_Board);
                 for i in H_Index loop
@@ -74,6 +85,7 @@ begin
                     Sum := Sum_of_unchecked;
                 end;
             end Compute_Unchecked_Numbers; -- return to the caller
+            -- exit;
         or
             accept Stop do
                 null;

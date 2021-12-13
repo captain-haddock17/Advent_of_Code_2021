@@ -34,6 +34,7 @@ package Bingo.Board is
 
     task type Board_Actor (ID : Board_ID; Jury : Jury_Actor_Ptr) is
         entry Verify (New_Set : Set_of_Numbers.Set);
+        entry RdV;
         entry Compute_Unchecked_Numbers
            (Sum                            : out Natural;
             Last_Winning_Called_Number_Set :     Set_of_Numbers.Set);

@@ -39,10 +39,6 @@ package body Bingo is
         return Actual_Numbers_in_Play;
     end get_Actual_Numbers_in_Play;
 
-    -- ---------------
-    -- Sets of Numbers
-    -- ---------------
-    procedure put (S : Set_of_Numbers.Set) is separate;
 
 
     -- ----

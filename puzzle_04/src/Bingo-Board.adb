@@ -1,3 +1,6 @@
+with Bingo.Called_Numbers_IO;
+use  Bingo.Called_Numbers_IO;
+
 with Ada.Text_IO;
 use Ada.Text_IO;
 
@@ -30,7 +33,6 @@ package body Bingo.Board is
         end if;
 
         Current_Row := V_Index'First;
---        Put ('[' & Actual_Boards_in_Play'Image & ']');
 
     exception
         when MAX_BOARDS_PER_GAME_REACHED =>

@@ -32,8 +32,7 @@ package Bingo is
 
     package Set_of_Numbers is new Ada.Containers.Bounded_Ordered_Sets (Element_Type => Called_Number, "<" => "<", "=" => "=");
 
-    procedure put (S : Set_of_Numbers.Set);
-
+    
 
 
     -- ----

@@ -9,17 +9,15 @@ task body Jury_Actor is
 begin
     Put_Line ("Installing the Jury ...");
     loop
-        select 
-         when not Game_Status.is_Game_Over =>
+        select when not Game_Status.is_Game_Over =>
             -- waiting for a winner ...
             accept Winning_Board
                (ID                             : Board_ID;
                 Last_Winning_Called_Number_Set : Set_of_Numbers.Set) do
                 Winner_ID                   := ID;
                 Last_Winning_Called_Numbers := Last_Winning_Called_Number_Set;
-            end Winning_Board;
-            Flag_Winner (Winner_ID);
-
+                Flag_Winner (Winner_ID);
+    
             -- Determine the continuation of the game
             if Game_Status.Game_FIRST then
                 Game_Status.Game_is_Over;
@@ -31,9 +29,16 @@ begin
                 New_Line;
                 Put_Line (".... Game_is_Over .... [" & Winner_ID'Image & "] is the LAST winning board.");
             end if;
+        end Winning_Board;
 
-        or 
-        -- when Game_Status.is_Game_Over =>
+        or when Game_Status.is_Game_Over =>
+            accept Winning_Board
+               (ID                             : Board_ID;
+                Last_Winning_Called_Number_Set : Set_of_Numbers.Set) do
+                null;
+            end Winning_Board;
+
+        or when Game_Status.is_Game_Over =>
             accept get_Winner_ID
                (ID                             :    out Board_ID;
                 Last_Winning_Called_Number_Set : in out Set_of_Numbers.Set) do
@@ -43,8 +48,7 @@ begin
             end get_Winner_ID;
             exit;
 
-        or 
-         when not Game_Status.is_Game_Over =>
+        or when not Game_Status.is_Game_Over =>
             accept get_Winner_ID
                (ID                             :    out Board_ID;
                 Last_Winning_Called_Number_Set : in out Set_of_Numbers.Set) do
