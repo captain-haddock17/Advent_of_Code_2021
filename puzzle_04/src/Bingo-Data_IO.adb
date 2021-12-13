@@ -27,7 +27,7 @@ package body Bingo.Data_IO is
 
     begin
         if Bingo_Data_String.Length (Some_Data) = 0 then
-            Do_we_create_a_New_Board := True;
+            is_First_Row := True;
         else
             Find_Token
                (Source => Some_Data,
@@ -48,7 +48,9 @@ package body Bingo.Data_IO is
                 Last   => Position_L);
 
             if Position_L > 0 then
-                store_Row (Data => Some_Data);
+                store_Row (Data => Some_Data, is_First_Row => is_First_Row);
+                is_First_Row := False;
+
             end if;
 
         end if;

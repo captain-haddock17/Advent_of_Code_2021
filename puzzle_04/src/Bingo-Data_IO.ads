@@ -18,6 +18,8 @@ package Bingo.Data_IO is
 
     Max_String_length : constant Positive := 2 + 100 * 3; -- := 2 + Max_NumberOutputs_in_Play * Nb_of_digits;
 
+    is_First_Row : Boolean;
+    
     -- -----------------------------
     -- Define Bounded_Strings and IO
     -- -----------------------------

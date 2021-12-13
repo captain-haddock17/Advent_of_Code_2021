@@ -11,6 +11,12 @@
 with Bingo;
 use Bingo;
 
+with Bingo.Board;
+use Bingo.Board;
+
+with Bingo.Jury;
+use Bingo.Jury;
+
 with Bingo.Data_IO;
 use Bingo.Data_IO;
 
@@ -59,6 +65,8 @@ procedure Puzzle_04_A is
     Active_Boards       : array (Board_ID)
     of Board_Actor_Ptr;
 
+    Jury : Jury_Actor_Ptr;
+
     New_Called_Set, Winning_Called_Numbers : Set_of_Numbers.Set (Count_Type (Max_NumberOutputs_in_Play));
     Last_Called_Number                     : Called_Number;
 
@@ -95,10 +103,13 @@ begin
 
     Nb_of_Active_Boards := get_Actual_nb_of_Boards;
 
-    -- Launch all the Board Actor threads
+    -- Launch the Jury Actor thread
+    Jury := new Jury_Actor;
+
+    -- Launch all the Board Actors threads
     Put ("Launching Board agent ");
     for ID in 1 .. Nb_of_Active_Boards loop
-        Active_Boards (ID) := new Board_Actor (ID);
+        Active_Boards (ID) := new Board_Actor (ID, Jury);
     end loop;
     Put_Line (" done.");
 

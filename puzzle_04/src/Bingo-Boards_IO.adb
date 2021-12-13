@@ -1,6 +1,9 @@
 with Bingo;
 use Bingo;
 
+with Bingo.Board;
+use Bingo.Board;
+
 with Ada.Text_IO;
 use Ada.Text_IO;
 use Ada;
@@ -9,7 +12,7 @@ package body Bingo.Boards_IO is
 
     use Bingo_Data_String;
 
-    procedure store_Row (Data : in Bingo_Data_String.Bounded_String) is
+    procedure store_Row (Data : in Bingo_Data_String.Bounded_String; is_First_Row : Boolean) is
 
         this_Data     : Bingo_Data_String.Bounded_String;
         Some_Row      : Row_array;
@@ -21,7 +24,7 @@ package body Bingo.Boards_IO is
 
     begin
         this_Data := Data;
-        if Do_we_create_a_New_Board then
+        if is_First_Row then
             create_New_Board;
         end if;
 

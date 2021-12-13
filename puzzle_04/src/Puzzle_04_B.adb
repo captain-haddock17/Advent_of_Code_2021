@@ -11,6 +11,12 @@
 with Bingo;
 use Bingo;
 
+with Bingo.Board;
+use Bingo.Board;
+
+with Bingo.Jury;
+use Bingo.Jury;
+
 with Bingo.Data_IO;
 use Bingo.Data_IO;
 
@@ -59,6 +65,8 @@ procedure Puzzle_04_B is
     Active_Boards       : array (Board_ID)
     of Board_Actor_Ptr;
 
+    Jury : Jury_Actor_Ptr;
+
     New_Called_Set, Winning_Called_Numbers : Set_of_Numbers.Set (Count_Type (Max_NumberOutputs_in_Play));
     Last_Called_Number                     : Called_Number;
 
@@ -94,10 +102,13 @@ begin
     
     Nb_of_Active_Boards := get_Actual_nb_of_Boards;
 
--- Launch all the Board Actor threads
+    -- Launch the Jury Actor thread
+    Jury := new Jury_Actor;
+
+    -- Launch all the Board Actor threads
     Put ("Launching Board agent ");
     for ID in 1 .. Nb_of_Active_Boards loop
-        Active_Boards (ID) := new Board_Actor (ID);
+        Active_Boards (ID) := new Board_Actor (ID, Jury);
     end loop;
     Put_Line (" done.");
 
@@ -123,6 +134,7 @@ begin
         -- Send set of Calling Numbers to all boards
         for ID in 1 .. Nb_of_Active_Boards loop
                 Active_Boards (ID).Verify (New_Set => New_Called_Set);
+                exit when Game_Status.is_Game_Over;
         end loop;
 
         exit when Game_Status.is_Game_Over;
@@ -135,12 +147,14 @@ begin
        (ID                             => Winner_ID,
         Last_Winning_Called_Number_Set => Winning_Called_Numbers);
 
+    New_Line;
     Put_Line ("Compute Unchecked_Numbers and report");
     Active_Boards (Winner_ID).Compute_Unchecked_Numbers
        (Sum                            => Sum_of_Unchecked_Numbers,
         Last_Winning_Called_Number_Set => Winning_Called_Numbers);
     Put_Line ("Sum_of_Unchecked_Numbers" & Sum_of_Unchecked_Numbers'Image);
 
+    -- Send to all boards to stop the game.
     for ID in 1 .. Nb_of_Active_Boards loop
         Active_Boards (ID).Stop;
     end loop;
