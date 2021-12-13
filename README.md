@@ -35,6 +35,15 @@ I used the forth comming [Ada 202x syntax and language-libraries](http://www.ada
 * Package-Library manager: [Alire](https://blog.adacore.com/first-beta-release-of-alire-the-package-manager-for-ada-spark)
 </div>
 
+## How to build & run
+```
+git clone https://github.com/AdaForge/Advent_of_Code_2021.git
+cd Advent_of_Code_2021/puzzle_01
+alr build
+bin/Puzzle_02_A data/Puzzle_01.txt
+```
+
+Note: you can also use `gprbuild puzzle_01.gpr` in place of `alr build`
 
 ## License & disclaimers
 Just plain open-source: [CC0 Universal Public Domain dedication](https://creativecommons.org/publicdomain/zero/1.0/deed.fr)'s
