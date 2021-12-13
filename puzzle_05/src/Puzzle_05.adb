@@ -2,7 +2,7 @@
 -- Author : William J. FRANCK
 -- e-Mail : william@sterna.io
 --
--- Initial creation date : 2021-12-02
+-- Initial creation date : 2021-12-05
 -- ------------------------------------------------
 -- License : CC-BY-SA
 -- ------------------------------------------------
@@ -24,7 +24,7 @@ use Ada.Characters;
 with Ada.Text_IO;
 use Ada.Text_IO;
 
-procedure Puzzle_05_A is
+procedure Puzzle_05 is
 
     -- File and Records definitions
     -- ----------------------------
@@ -80,7 +80,10 @@ begin
 
     Put_Line ("Dangerous_Areas_Count :" & Dangerous_Areas_Count'Image);
 
-end Puzzle_05_A;
+end Puzzle_05;
 
--- $ bin/Puzzle_05_A data/Puzzle_05.txt
+-- $ bin/Puzzle_05 data/Puzzle_05.txt
+-- Part A
 -- Dangerous_Areas_Count : 6666
+-- Part B, with diagonals
+-- Dangerous_Areas_Count : 19081
