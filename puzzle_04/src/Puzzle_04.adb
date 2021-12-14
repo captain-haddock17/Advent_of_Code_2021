@@ -54,9 +54,6 @@ procedure Puzzle_04 is
     -- ----------------------------
     Data_File : Ada.Text_IO.File_Type;
 
-
-    Missing_FileName : exception;
-
     use Bingo_Data_String;
     use Bingo.Data_IO.Bingo_Data_Stream;
 
