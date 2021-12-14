@@ -5,13 +5,11 @@ with Ada.Text_IO;
 
 package body Lanternfishs_IO is
 
---    package Life_Timer_IO is new Ada.Text_IO.Integer_IO (Life_Timer);
-
     Separator : Character := ',';
 
-    -- ---
-    -- get
-    -- ---
+    -- --------
+    -- Get_Next
+    -- --------
     procedure Get_Next
        (File :        Ada.Text_IO.File_Type;
         Item : in out Life_Timer)
@@ -25,17 +23,19 @@ package body Lanternfishs_IO is
             Item => Item);
     end Get_Next;
 
+    -- ---
+    -- get
+    -- ---
     procedure get
        (File :        Ada.Text_IO.File_Type;
         Item : in out Life_Timer)
     is
         Char : Character;
-        i : integer;
     begin
-        ada.Text_IO.Get
+        Ada.Text_IO.Get
            (File => File,
             Item => Char);
-        Item := Life_Timer'Value(" "&Char);
+        Item := Life_Timer'Value (" " & Char);
     end get;
 
 end Lanternfishs_IO;

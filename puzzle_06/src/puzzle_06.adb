@@ -13,50 +13,52 @@ use Lanternfishs;
 with Lanternfishs_IO;
 use Lanternfishs_IO;
 
-with Ada.Strings.Bounded;
+with Command_Line;
+use Command_Line;
 
-with Ada.Command_Line;
-use Ada.Command_Line;
+-- Ada Common Libraries
+with Ada.Numerics.Big_Numbers.Big_Integers;
+use Ada.Numerics.Big_Numbers.Big_Integers;
 
-with Ada.Characters.Latin_1;
-use Ada.Characters;
+with Ada.Strings;
+use Ada.Strings;
+
+with Ada.Strings.Fixed;
+use Ada.Strings.Fixed;
+
+-- with Ada.Characters.Latin_1;
+-- use Ada.Characters;
 
 with Ada.Text_IO;
 use Ada.Text_IO;
 
 procedure Puzzle_06 is
 
-    -- File and Records definitions
+    -- ----------------------------
+    -- File and Run-Time Parameters
     -- ----------------------------
     Data_File : Ada.Text_IO.File_Type;
+    Run_Args  : Command_Line.Program_args;
 
-    package OS_File_Name is new Ada.Strings.Bounded.Generic_Bounded_Length (1_024);
-    Data_File_Name : OS_File_Name.Bounded_String;
 
-    Missing_FileName : exception;
-
-    -- Definitions
-    -- -----------
+    -- ---------------------
+    -- Objects for computing 
+    -- ---------------------
+    Day             : Natural    := 0;
     Some_Fish_Timer : Life_Timer := 0;
-    Fish_Count : Natural := 0;
-    Nb_of_Days : Natural := 0;
-
-    Max_Nb_Days : constant Positive := 80;
+    Fish_Count      : Population := 0;
+    Big_Fish_Count  : Big_Integer;
 
 begin
 
-    -- get the filename
-    if Argument_Count /= 1 then
-        raise Missing_FileName;
-    end if;
-
-    Data_File_Name := OS_File_Name.To_Bounded_String (Argument (1));
+    -- get the command lien arguments
+    Command_Line.get_args (args => Run_Args);
 
     -- Open and read the file
     Ada.Text_IO.Open
        (File => Data_File,
         Mode => Ada.Text_IO.In_File,
-        Name => OS_File_Name.To_String (Data_File_Name));
+        Name => OS_File_Name.To_String (Run_Args.Data_File_Name));
 
     while not End_Of_File (Data_File) loop
 
@@ -78,22 +80,23 @@ begin
 
     Close (Data_File);
 
-
     -- Time and Life is passing by
     Fish_Count := 0;
-    Nb_of_Days := 0;
-    while Nb_of_Days < Max_Nb_Days loop
-        Nb_of_Days := @+1;
-        Fish_Count := next_day;
-        -- Put_Line ("Day" & Nb_of_Days'Image & " : " & Fish_Count'Image & " Fishs.");
+    while Day < Run_Args.Nb_of_Days loop
+        Day        := @ + 1;
+        Fish_Count := Next_Day;
     end loop;
 
-    Put_Line ("Fish_Count" & Fish_Count'Image);
-    Put_Line ("Nb_Fishs_in_School" & Nb_Fishs_in_School'Image);
-    Put_Line ("Count_Fishs_in_School" & Count_Fishs_in_School'Image);
-    New_Line;
+    Fish_Count     := get_Nb_Fishs_in_School;
+    Big_Fish_Count := Population_IO.To_Big_Integer (Fish_Count);
+
     -- Output the result
-    Put_Line ("Nb of Days :" & Nb_of_Days'Image & " to get " & Fish_Count'Image & " fishs.");
+    Put (Trim(Source => Day'Image, Side => Left));
+    Put (" days to get ");
+    Put (To_String
+           (Arg   => Big_Fish_Count,
+            Width => 20));
+    Put_Line (" fishs.");
 
 end Puzzle_06;
 

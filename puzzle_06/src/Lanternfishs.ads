@@ -1,4 +1,8 @@
+with Ada.Numerics.Big_Numbers.Big_Integers;
+use Ada.Numerics.Big_Numbers.Big_Integers;
 package Lanternfishs is
+
+    subtype Population is Long_Long_Integer; -- 64 bits
 
     subtype Life_Timer is Natural range 0 .. 8;
     subtype SubLife_Timer is Natural range 0 .. 6;
@@ -16,10 +20,10 @@ package Lanternfishs is
 
     -- function Aging (Timer : Life_Timer) return Life_Timer;
 
-    function next_day return Natural;
+    function Next_Day return Population;
 
-    function Nb_Fishs_in_School return Natural;
+    function get_Nb_Fishs_in_School return Population;
 
-    function Count_Fishs_in_School return Natural;
+    function Count_Fishs_in_School return Population;
 
 end Lanternfishs;

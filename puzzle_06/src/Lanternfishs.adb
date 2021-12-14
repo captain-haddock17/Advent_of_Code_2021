@@ -3,12 +3,11 @@ use Ada.Text_IO;
 
 package body Lanternfishs is
 
-    School_of_fishs : Lanternfish_Ptr := null; -- first fish
-    Last_fish       : Lanternfish_Ptr := null;
-    NB_Fish_to_be_Created : natural := 0;
+    School_of_fishs       : Lanternfish_Ptr := null; -- First fish in tyhe School
+    Last_fish             : Lanternfish_Ptr := null;
+    NB_Fish_to_be_Created : Natural         := 0;
 
-    Nb_of_Fishs : Natural := 0;
-
+    Nb_of_Fishs : Population := 0;
 
     -- --------
     -- New_Fish
@@ -16,30 +15,28 @@ package body Lanternfishs is
     procedure New_Fish (Timer : Life_Timer) is
         Previous_Last_Fish : Lanternfish_Ptr;
     begin
-        Previous_Last_Fish := Last_Fish;
-        Last_Fish := new Lanternfish;
-        Last_Fish.Sibling := null;
-        Last_Fish.Timer   := Timer;
+        Previous_Last_Fish := Last_fish;
+        Last_fish          := new Lanternfish;
+        Last_fish.Sibling  := null;
+        Last_fish.Timer    := Timer;
 
         if School_of_fishs = null then
             School_of_fishs := Last_fish; -- First fish :-)
         else
-            Previous_Last_Fish.Sibling := Last_Fish;
+            Previous_Last_Fish.Sibling := Last_fish;
         end if;
 
-        Nb_of_Fishs       := @ + 1;
+        Nb_of_Fishs := @ + 1;
 
     end New_Fish;
-
 
     -- ---------
     -- New_Birth
     -- ---------
     procedure New_Birth is
     begin
-        New_Fish(8);
+        New_Fish (8);
     end New_Birth;
-
 
     -- -----
     -- Aging
@@ -53,21 +50,18 @@ package body Lanternfishs is
         New_Timer := Timer;
         case New_Timer is
             when Life_Timer'First =>  -- 0
-                New_Timer := SubLife_Timer'Last; -- 6
-                NB_Fish_to_be_Created := @ +1;
-            -- when Life_Timer'First + 1 =>  -- 1
-            --     New_Timer := SubLife_Timer'First; -- 0
+                New_Timer             := SubLife_Timer'Last; -- 6
+                NB_Fish_to_be_Created := @ + 1;
             when Life_Timer'First + 1 .. Life_Timer'Last => -- 2 .. 8
                 New_Timer := @ - 1;
         end case;
         return New_Timer;
     end Aging;
 
-
     -- --------
     -- Next_Day
     -- --------
-    function Next_Day return Natural is
+    function Next_Day return Population is
         Some_Fish : Lanternfish_Ptr;
     begin
         Some_Fish := School_of_fishs;
@@ -77,29 +71,28 @@ package body Lanternfishs is
             Some_Fish       := Some_Fish.Sibling;
         end loop;
 
-        for i in 1.. NB_Fish_to_be_Created loop
-            New_Fish(8);
+        for i in 1 .. NB_Fish_to_be_Created loop
+            New_Fish (8);
         end loop;
-        NB_Fish_to_be_Created :=0;
+        NB_Fish_to_be_Created := 0;
 
         return Nb_of_Fishs;
     end Next_Day;
 
-
     -- ------------------
     -- Nb_Fishs_in_School
     -- ------------------
-    function Nb_Fishs_in_School return Natural is
+    function get_Nb_Fishs_in_School return Population is
     begin
         return Nb_of_Fishs;
-    end Nb_Fishs_in_School;
+    end get_Nb_Fishs_in_School;
 
     -- ---------------------
     -- Count_Fishs_in_School
     -- ---------------------
-    function Count_Fishs_in_School return Natural is
+    function Count_Fishs_in_School return Population is
         Some_Fish : Lanternfish_Ptr;
-        Count     : Natural := 0;
+        Count     : Population := 0;
     begin
         Some_Fish := School_of_fishs;
         while Some_Fish /= null loop
