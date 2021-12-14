@@ -2,16 +2,15 @@ package Lanternfishs is
 
     subtype Population is Long_Long_Integer; -- 64 bits
 
-    subtype Life_Timer;
-    Baby : constant Life_Timer := 8;
-    subtype Life_Timer is Natural range 0 .. Baby;
+    BabyFish : constant Positive := 8;
+    subtype Life_Timer is Natural range 0 .. BabyFish;
     subtype SubLife_Timer is Natural range 0 .. 6;
 
     type Lanternfish;
     type Lanternfish_Ptr is access all Lanternfish;
 
     type Lanternfish is record
-        Timer   : Life_Timer      := Baby;
+        Timer   : Life_Timer      := BabyFish;
         Sibling : Lanternfish_Ptr := null;
     end record;
 
