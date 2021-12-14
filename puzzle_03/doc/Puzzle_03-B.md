@@ -31,6 +31,6 @@ Then, to determine the **CO2 scrubber rating** value from the same example above
 
 Finally, to find the life support rating, multiply the **oxygen generator rating** (`23`) by the **CO2 scrubber rating** (`10`) to get `230`.
 
-Use the binary numbers in your diagnostic report to calculate the **oxygen generator rating** and **CO2 scrubber rating**, then multiply them together. 
+Use the binary numbers in your diagnostic report to calculate the **oxygen generator rating** and **CO2 scrubber rating**, then multiply them together.
 **What is the life support rating of the submarine?**
 (Be sure to represent your answer in *decimal*, not binary.)

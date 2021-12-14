@@ -8,7 +8,7 @@ You need to use the binary numbers in the diagnostic report to generate two new 
 
 Each bit in the gamma rate can be determined by finding the **most common bit in the corresponding position** of all numbers in the diagnostic report. For example, given the following diagnostic report:
 
-```
+```text
 00100
 11110
 10110
