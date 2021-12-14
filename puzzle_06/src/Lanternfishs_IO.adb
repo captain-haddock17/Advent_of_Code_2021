@@ -1,6 +1,3 @@
--- with Hydrothermal_Vents;
--- use Hydrothermal_Vents;
-
 with Ada.Text_IO;
 
 package body Lanternfishs_IO is

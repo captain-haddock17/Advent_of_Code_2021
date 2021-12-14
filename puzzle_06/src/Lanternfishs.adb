@@ -72,7 +72,7 @@ package body Lanternfishs is
         end loop;
 
         for i in 1 .. NB_Fish_to_be_Created loop
-            New_Fish (8);
+            New_Fish (Baby);
         end loop;
         NB_Fish_to_be_Created := 0;
 

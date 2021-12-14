@@ -101,8 +101,5 @@ begin
 end Puzzle_06;
 
 -- $ bin/puzzle_06 data/Puzzle_06.txt
--- Fish_Count 350605
--- Nb_Fishs_in_School 350605
--- Count_Fishs_in_School 350605
---
--- Nb of Days : 80 to get  350605 fishs
+-- 80 days to get               350605 fishs.
+-- in 0.023 sec.

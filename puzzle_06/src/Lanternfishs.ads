@@ -1,18 +1,17 @@
-with Ada.Numerics.Big_Numbers.Big_Integers;
-use Ada.Numerics.Big_Numbers.Big_Integers;
 package Lanternfishs is
 
     subtype Population is Long_Long_Integer; -- 64 bits
 
-    subtype Life_Timer is Natural range 0 .. 8;
+    subtype Life_Timer;
+    Baby : constant Life_Timer := 8;
+    subtype Life_Timer is Natural range 0 .. Baby;
     subtype SubLife_Timer is Natural range 0 .. 6;
-    Baby : Life_Timer := 8;
 
     type Lanternfish;
     type Lanternfish_Ptr is access all Lanternfish;
 
     type Lanternfish is record
-        Timer   : Life_Timer      := 8;
+        Timer   : Life_Timer      := Baby;
         Sibling : Lanternfish_Ptr := null;
     end record;
 
