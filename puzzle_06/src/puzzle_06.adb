@@ -2,7 +2,7 @@
 -- Author : William J. FRANCK
 -- e-Mail : william@sterna.io
 --
--- Initial creation date : 2021-12-05
+-- Initial creation date : 2021-12-06
 -- ------------------------------------------------
 -- License : CC-BY-SA
 -- ------------------------------------------------
@@ -97,7 +97,7 @@ begin
 
 end Puzzle_06;
 
--- $ bin/Puzzle_06 data/Puzzle_06.txt
+-- $ bin/puzzle_06 data/Puzzle_06.txt
 -- Fish_Count 350605
 -- Nb_Fishs_in_School 350605
 -- Count_Fishs_in_School 350605
