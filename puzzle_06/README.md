@@ -53,7 +53,7 @@ Going further became a nightmare 😫 ... of over-population 🐟🐟🐟🐟�
 | 210| 490 587 171|  *Out of memory* |
 | 256| *Out of memory* |  *Out of memory* |
 
-Some charting shows clearly that growts is a 10 exponential, with factor depending on the initial data (5🐟 ou 300🐟) : respectively 24 or 20.
+Some charting shows clearly that growth is a 10 exponential here, with a factor depending on the initial data (5🐟 ou 300🐟) : respectively 24 or 20.
 
 ![Population growth from 5](doc/Population_Growth-from_5.png)
 
