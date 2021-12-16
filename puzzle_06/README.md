@@ -34,7 +34,7 @@ A new baby fish can be done easily throught the use of dynamic allocation when o
 
 ### Population
 
-Running the simulation of 16 or 80 days of a school of Lanternfish was cool.
+Running the simulation of 18 or 80 days of a school of Lanternfish was cool.
 
 Going further became a nightmare ... of over-population!
 
@@ -96,17 +96,17 @@ Values of the dimensiosn are for now hard-coded.
 
 ```ada
 Nb_Days_of_Generations : Positive := 18;
-Initial_Generation     : Positive := 5;
+Initial_Population     : Positive := 5;
 ```
 which could be replaced by
 ```ada
 Nb_Days_of_Generations : Positive := 256;
-Initial_Generation     : Positive := 300;
+Initial_Population     : Positive := 300;
 ```
 
 ```ada
 -- Specific Frame algorithm
 -- ------------------------
 
-type Generations_array is array (0 ..(Nb_Days_of_Generations, 1 .. Initial_Population) of Lanternfish;
+type Generations_array is array (0 .. Nb_Days_of_Generations, 1 .. Initial_Population) of Lanternfish;
 ```
