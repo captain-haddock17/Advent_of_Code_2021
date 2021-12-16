@@ -15,7 +15,7 @@ type Lanternfish is record
 end record;
 ```
 
-A new baby fish can be done easily throught the use of dynamic allocation when one comes at it's life-timer of `0`.
+A new baby fish can be created easily throught the use of dynamic allocation when one comes at it's life-timer of `0`.
 
 ```ada
   procedure New_Fish (Timer : Life_Timer) is
