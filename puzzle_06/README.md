@@ -34,11 +34,11 @@ A new baby fish can be done easily throught the use of dynamic allocation when o
 
 ### Population
 
-Running the simulation of 18 or 80 days of a school of Lanternfish was cool.
+Running the simulation for 18 or 80 days of a school of Lanternfish was cool 😎 ... in the begining 
 
-Going further became a nightmare ... of over-population!
+Going further became a nightmare 😫 ... of over-population 🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟!
 
-| Day | Population | Population |
+| Day | 🐟 Population | 🐟 Population |
 | --:| --:| --:|
 | 0 | 5 | 300|
 | 18| 26| 1 563|
@@ -53,7 +53,7 @@ Going further became a nightmare ... of over-population!
 | 210| 490 587 171|  *Out of memory* |
 | 256| *Out of memory* |  *Out of memory* |
 
-Some charting shows clearly that growts is a 10 exponential, with factor depending on the initial data (5 ou 300) : respectively 24 or 20.
+Some charting shows clearly that growts is a 10 exponential, with factor depending on the initial data (5🐟 ou 300🐟) : respectively 24 or 20.
 
 ![Population growth from 5](doc/Population_Growth-from_5.png)
 
@@ -69,7 +69,7 @@ One can then extrapolate what the population would be after 256 days.
 ### Execution time
 Execution time (sec) ... on a [Ryzen 3900](https://www.amd.com/fr/products/cpu/amd-ryzen-9-pro-3900) @ 4,3 GHz equiped with 64 GB of RAM.
 
-| Day | 5 Initial Population | 300 Initial Population |
+| Day | 5 🐟  at init. | 300 🐟 at init. |
 | --:| --:| --:|
 | 18 | 0,005 | 0,01 |
 | 20 | 0,005 | 0,01 |
@@ -85,14 +85,14 @@ Execution time (sec) ... on a [Ryzen 3900](https://www.amd.com/fr/products/cpu/a
 | 210 | 29,25 |  Out of memory |
 | 256 | Out of memory | Out of memory 284 GB |
 
-# Clearly, have to find another simulation algorithm
+# Clearly, have to find another simulation algorithm 🧞‍♂️
 
-## New solution pattern
+## 💡 New solution pattern 💡
 
-Based on the **cyclic vertical schema** observed for each existing fish (`6` down to `0`), and (`8` down to `0`) for a new fish, one could consider the initial shool of fish (5 or 300 in the data files provided) as an inital *frame* i.e array, which will be continued (repaced ?) with another new *frame*.
+Based on the **cyclic vertical schema** observed for each existing fish (`6` down to `0`), and (`8` down to `0`) for a new fish, one could consider the initial shool of fish (5🐟 or 300🐟 in the data files provided) as an inital *frame* i.e array, which will be continued (repaced ?) with another new *frame*.
 Counting the population will be a matter of counting the frames and columns containing some fish.
 
-Values of the dimensiosn are for now hard-coded.
+Values of the dimensions of the *frame* are for now hard-coded 🖐🏼.
 
 ```ada
 Nb_Days_of_Generations : Positive := 18;
