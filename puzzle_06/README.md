@@ -18,16 +18,15 @@ end record;
 A new baby fish can be created easily throught the use of dynamic allocation when one comes at it's life-timer of `0`.
 
 ```ada
-  procedure New_Fish (Timer : Life_Timer) is
-  (...)
-    begin
-  (...)
-        Last_fish := new Lanternfish;
-  (...)
-        Previous_Last_Fish.Sibling := Last_fish;
-  (...)
-
-    end New_Fish;
+procedure New_Fish (Timer : Life_Timer) is
+    (...)
+begin
+    (...)
+    Last_fish := new Lanternfish;
+    (...)
+    Previous_Last_Fish.Sibling := Last_fish;
+    (...)
+end New_Fish;
 ```
 
 ## First results
@@ -67,7 +66,8 @@ One can then extrapolate what the population would be after 256 days.
 | 256| 39 Giga | 3 Tera |
 
 ### Execution time
-Execution time (sec) ... on a [Ryzen 3900](https://www.amd.com/fr/products/cpu/amd-ryzen-9-pro-3900) @ 4,3 GHz equiped with 64 GB of RAM.
+
+Execution time (sec) ... on a [Ryzen 3900](https://www.amd.com/en/products/cpu/amd-ryzen-9-pro-3900) @ 4.3 GHz equiped with 64 GB of RAM.
 
 | Day | 5 🐟  at init. | 300 🐟 at init. |
 | --:| --:| --:|
@@ -98,7 +98,9 @@ Values of the dimensions of the *frame* are for now hard-coded 🖐🏼.
 Nb_Days_of_Generations : Positive := 18;
 Initial_Population     : Positive := 5;
 ```
+
 which could be replaced by
+
 ```ada
 Nb_Days_of_Generations : Positive := 256;
 Initial_Population     : Positive := 300;
