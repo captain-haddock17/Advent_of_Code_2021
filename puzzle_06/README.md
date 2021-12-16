@@ -61,7 +61,7 @@ Some charting shows clearly that growts is a 10 exponential, with factor dependi
 
 One can then extrapolate what the population would be after 256 days.
 
-| Day | Population | Population |
+| Day | 5 Initial Population | 300 Initial Population |
 | --:| --:| --:|
 | 256| 39_300_000_000 | 3_070_000_000_000 |
 | 256| 39 Giga | 3 Tera |
@@ -69,7 +69,7 @@ One can then extrapolate what the population would be after 256 days.
 ### Execution time
 Execution time (sec) ... on a [Ryzen 3900](https://www.amd.com/fr/products/cpu/amd-ryzen-9-pro-3900) @ 4,3 GHz equiped with 64 GB of RAM.
 
-| Day | Population | Population |
+| Day | 5 Initial Population | 300 Initial Population |
 | --:| --:| --:|
 | 18 | 0,005 | 0,01 |
 | 20 | 0,005 | 0,01 |
