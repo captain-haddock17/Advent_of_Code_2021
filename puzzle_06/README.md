@@ -24,6 +24,9 @@ A new baby fish can be done easily throught the use of dynamic allocation when o
   (...)
         Last_fish := new Lanternfish;
   (...)
+        Previous_Last_Fish.Sibling := Last_fish;
+  (...)
+
     end New_Fish;
 ```
 
