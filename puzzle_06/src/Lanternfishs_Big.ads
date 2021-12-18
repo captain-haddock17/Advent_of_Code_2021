@@ -17,12 +17,12 @@ package Lanternfishs_Big is
     -- Specific Frame algorithm
     -- ------------------------
     Initial_Population     : constant Positive := 5;
-    Nb_Days_of_Generations : constant Positive := 160;
+    Nb_Days_of_Generations : constant Positive := 256;
 
     -- type Population_Frame_type is mod Initial_Population;
     subtype Population_Frame_type is
        Positive range
-          1 .. 1_800_000;
+          1 .. 4_000_000;
              -- 1_800_000; --Nb_Days_of_Generations*10 * SubLife_Timer'Last * Integer(Life_Timer'Last - Life_Timer'First +1 ); -- = 300 * 6 * 9
 
     subtype Days_of_Generations_range is Natural range 0 .. Nb_Days_of_Generations; --18
@@ -30,16 +30,19 @@ package Lanternfishs_Big is
     type Generations_array is
        array (Days_of_Generations_range, Population_Frame_type)
        of Lanternfish;
+
+    type Generations_array_Ptr is access Generations_array;
+    for Generations_array_Ptr'Storage_Size use 2**43;
+   
     -- for Generations_array'Component_Size use 8;
     -- pragma Pack (Generations_array);
 
     subtype myPool is Root_Storage_Pool;
     -- Pool_Object : myPool;
     Pool_Address : System.Address;
-    Pool_Size : System.Storage_Elements.Storage_Count := 2**30;
+    Pool_Size : System.Storage_Elements.Storage_Count := 2**40;
     Pool_Alignement : System.Storage_Elements.Storage_Count := 64;
 
-    type Generations_array_Ptr is access Generations_array;
     -- with Storage_Pool => Pool_Object;
 
     -- function allocate ( 

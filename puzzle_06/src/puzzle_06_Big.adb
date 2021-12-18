@@ -102,11 +102,18 @@ begin
               (Actual_Frame => Big_Frame,
                New_Frame    => New_Big_Frame);
 
-        Put_Line (New_Fishs'Image & " new fishs.");
+        Big_Fish_Count := Population_IO.To_Big_Integer (New_Fishs);
+        Put (To_String
+           (Arg   => Big_Fish_Count,
+            Width => 20));
+        Put_Line (" new fishs.");
 
         exit when New_Fishs = 0;-- or Fish_Count > 30;
         Fish_Count := @ + New_Fishs;
+
+        -- Reuse memory by transfering 'New' to 'Old'
         Big_Frame.all  := New_Big_Frame.all;
+
     end loop;
 
     -- Fish_Count     := get_Nb_Fishs_in_School;
