@@ -11,6 +11,6 @@ package Command_Line is
         Nb_of_Days     : Natural := 16;
     end record;
 
-    procedure Get_Args (args : in out Program_Args);
+    procedure Get_Args (args : in out Program_args);
 
 end Command_Line;

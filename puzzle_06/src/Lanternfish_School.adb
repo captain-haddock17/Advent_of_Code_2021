@@ -1,13 +1,19 @@
+with Lanternfishs_IO;
+use Lanternfishs_IO;
+
 with Ada.Text_IO;
 use Ada.Text_IO;
 
-package body Lanternfishs is
+package body Lanternfish_School is
 
     School_of_fishs       : Lanternfish_Ptr := null; -- First fish in tyhe School
     Last_fish             : Lanternfish_Ptr := null;
     NB_Fish_to_be_Created : Natural         := 0;
+    Nb_of_Fishs           : Population      := 0;
 
-    Nb_of_Fishs : Population := 0;
+--     Nb_of_Fishs : Population := 0;
+--    Fish_Index : Natural range 0 .. Population_Frame_type'Last := 0;
+--    Nb_of_Frames : Natural := 0;
 
     -- --------
     -- New_Fish
@@ -15,19 +21,18 @@ package body Lanternfishs is
     procedure New_Fish (Timer : Life_Timer) is
         Previous_Last_Fish : Lanternfish_Ptr;
     begin
-        Previous_Last_Fish := Last_fish;
-        Last_fish          := new Lanternfish;
-        Last_fish.Sibling  := null;
-        Last_fish.Timer    := Timer;
+        Nb_of_Fishs          := @ + 1;
+        Previous_Last_Fish   := Last_fish;
+        Last_fish            := new Lanternfish_chain;
+        Last_fish.Sibling    := null;
+        Last_fish.Fish.Timer := Timer;
+        Last_fish.Fish.Alive := True;
 
         if School_of_fishs = null then
             School_of_fishs := Last_fish; -- First fish :-)
         else
             Previous_Last_Fish.Sibling := Last_fish;
         end if;
-
-        Nb_of_Fishs := @ + 1;
-
     end New_Fish;
 
     -- ---------
@@ -50,7 +55,7 @@ package body Lanternfishs is
         New_Timer := Timer;
         case New_Timer is
             when Life_Timer'First =>  -- 0
-                New_Timer             := SubLife_Timer'Last; -- 6
+                New_Timer             := Life_Timer (SubLife_Timer'Last); -- 6
                 NB_Fish_to_be_Created := @ + 1;
             when Life_Timer'First + 1 .. Life_Timer'Last => -- 2 .. 8
                 New_Timer := @ - 1;
@@ -67,8 +72,8 @@ package body Lanternfishs is
         Some_Fish := School_of_fishs;
 
         while Some_Fish /= null loop
-            Some_Fish.Timer := Aging (Some_Fish.Timer);
-            Some_Fish       := Some_Fish.Sibling;
+            Some_Fish.Fish.Timer := Aging (Some_Fish.Fish.Timer);
+            Some_Fish            := Some_Fish.Sibling;
         end loop;
 
         for i in 1 .. NB_Fish_to_be_Created loop
@@ -102,4 +107,4 @@ package body Lanternfishs is
         return Count;
     end Count_Fishs_in_School;
 
-end Lanternfishs;
+end Lanternfish_School;

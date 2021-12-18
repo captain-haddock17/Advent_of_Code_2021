@@ -35,4 +35,14 @@ package body Lanternfishs_IO is
         Item := Life_Timer'Value (" " & Char);
     end get;
 
+    procedure put (Item : Lanternfish) is
+    begin
+        if Item.Alive then
+            Ada.Text_IO.Put (Item.Timer'Image);
+        else
+            null;
+            -- Ada.Text_IO.put(" .");
+        end if;
+    end put;
+
 end Lanternfishs_IO;

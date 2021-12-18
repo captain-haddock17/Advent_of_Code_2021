@@ -18,4 +18,6 @@ package Lanternfishs_IO is
 
     package Population_IO is new Big_Integers.Signed_Conversions (Population);
 
+    procedure put (Item : Lanternfish);
+
 end Lanternfishs_IO;

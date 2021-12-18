@@ -13,8 +13,8 @@ use Lanternfishs;
 with Lanternfishs_IO;
 use Lanternfishs_IO;
 
-with Lanternfish_School;
-use Lanternfish_School;
+with Lanternfishs_Big;
+use Lanternfishs_Big;
 
 with Command_Line;
 use Command_Line;
@@ -35,7 +35,7 @@ use Ada.Strings.Fixed;
 with Ada.Text_IO;
 use Ada.Text_IO;
 
-procedure Puzzle_06 is
+procedure Puzzle_06_Big is
 
     -- ----------------------------
     -- File and Run-Time Parameters
@@ -46,17 +46,21 @@ procedure Puzzle_06 is
     -- ---------------------
     -- Objects for computing
     -- ---------------------
-    Day             : Natural    := 0;
-    Some_Fish_Timer : Life_Timer := 0;
-    Fish_Count      : Population := 0;
-    Big_Fish_Count  : Big_Integer;
+    Day                   : Natural    := Nb_Days_of_Generations;
+    Some_Fish_Timer       : Life_Timer := 0;
+    Fish_Count, New_Fishs : Population := 0;
+    Big_Fish_Count        : Big_Integer;
 
+    Big_Frame, New_Big_Frame : Generations_array_Ptr;
 begin
+    Big_Frame     := new Generations_array;
+    Big_Frame.all := (others => (others => (7, False)));
 
     -- get the command lien arguments
     Command_Line.Get_Args (args => Run_Args);
 
     Put_Line (Integer (Lanternfish'Size / 8)'Image & " bytes");
+    Put_Line (Integer (Generations_array'Size / 8)'Image & " bytes");
 
     -- Open and read the file
     Ada.Text_IO.Open
@@ -78,23 +82,38 @@ begin
 
         Fish_Count := @ + 1;
 
-        New_Fish (Some_Fish_Timer);
+        New_Fish_In_Big_School (Big_Frame, Some_Fish_Timer);
 
     end loop;
 
     Close (Data_File);
 
+    Put_Line ("Fish_Count" & Fish_Count'Image);
+    Populate_Frame
+       (Frame        => Big_Frame,
+        Nb_of_Babies => Population_Frame_type (Fish_Count),
+        First_Day    => 0);
+
     -- Time and Life is passing by
-    Fish_Count := 0;
-    while Day < Run_Args.Nb_of_Days loop
-        Day        := @ + 1;
-        Fish_Count := Next_Day;
+        New_Big_Frame := new Generations_array;
+    loop
+
+        New_Fishs := Next_Big_Generation
+              (Actual_Frame => Big_Frame,
+               New_Frame    => New_Big_Frame);
+
+        Put_Line (New_Fishs'Image & " new fishs.");
+
+        exit when New_Fishs = 0;-- or Fish_Count > 30;
+        Fish_Count := @ + New_Fishs;
+        Big_Frame.all  := New_Big_Frame.all;
     end loop;
 
-    Fish_Count     := get_Nb_Fishs_in_School;
+    -- Fish_Count     := get_Nb_Fishs_in_School;
     Big_Fish_Count := Population_IO.To_Big_Integer (Fish_Count);
 
     -- Output the result
+    New_Line;
     Put (Trim
            (Source => Day'Image,
             Side   => Left));
@@ -104,8 +123,8 @@ begin
             Width => 20));
     Put_Line (" fishs.");
 
-end Puzzle_06;
+end Puzzle_06_Big;
 
--- $ bin/puzzle_06 data/Puzzle_06.txt
+-- $ bin/Puzzle_06_Big data/Puzzle_06_Big.txt
 -- 80 days to get               350605 fishs.
 -- in 0.023 sec.
