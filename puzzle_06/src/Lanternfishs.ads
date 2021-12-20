@@ -3,9 +3,8 @@ package Lanternfishs is
     -- general
     subtype Population is Long_Long_Integer; -- 64 bits
 
-
-    Mature : constant := 0;
-    Young  : constant := 6;
+    Mature   : constant := 0;
+    Young    : constant := 6;
     BabyFish : constant := 8;
 
     type Life_Timer is new Natural range Mature .. BabyFish;

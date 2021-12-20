@@ -75,9 +75,8 @@ begin
 
     Close (Data_File);
 
-
-    -- Time and Life is passing by  
-    for D in 1.. Run_Args.Nb_of_Days loop
+    -- Time and Life is passing by
+    for D in 1 .. Run_Args.Nb_of_Days loop
         Fish_Count := Next_Day;
     end loop;
 
