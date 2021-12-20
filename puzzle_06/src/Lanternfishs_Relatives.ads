@@ -1,7 +1,7 @@
 with Lanternfishs;
 use Lanternfishs;
 
-package Lanternfish_School is
+package Lanternfishs_Relatives is
 
     -- -----------------------------------------
     -- Definition of some dimensional contraints
@@ -31,4 +31,4 @@ package Lanternfish_School is
 
     function Count_Fishs_in_School return Population;
 
-end Lanternfish_School;
+end Lanternfishs_Relatives;

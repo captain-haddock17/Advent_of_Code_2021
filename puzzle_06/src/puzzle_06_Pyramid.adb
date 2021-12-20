@@ -13,29 +13,23 @@ use Lanternfishs;
 with Lanternfishs_IO;
 use Lanternfishs_IO;
 
-with Lanternfish_School;
-use Lanternfish_School;
+with Lanternfishs_Pyramid;
+use Lanternfishs_Pyramid;
 
 with Command_Line;
 use Command_Line;
 
 -- Ada Common Libraries
-with Ada.Numerics.Big_Numbers.Big_Integers;
-use Ada.Numerics.Big_Numbers.Big_Integers;
-
 with Ada.Strings;
 use Ada.Strings;
 
 with Ada.Strings.Fixed;
 use Ada.Strings.Fixed;
 
--- with Ada.Characters.Latin_1;
--- use Ada.Characters;
-
 with Ada.Text_IO;
 use Ada.Text_IO;
 
-procedure Puzzle_06 is
+procedure Puzzle_06_Pyramid is
 
     -- ----------------------------
     -- File and Run-Time Parameters
@@ -46,17 +40,14 @@ procedure Puzzle_06 is
     -- ---------------------
     -- Objects for computing
     -- ---------------------
-    Day             : Natural    := 0;
+--    Day             : Natural    := 0;
     Some_Fish_Timer : Life_Timer := 0;
     Fish_Count      : Population := 0;
-    Big_Fish_Count  : Big_Integer;
 
 begin
 
     -- get the command lien arguments
     Command_Line.Get_Args (args => Run_Args);
-
-    Put_Line (Integer (Lanternfish'Size / 8)'Image & " bytes");
 
     -- Open and read the file
     Ada.Text_IO.Open
@@ -84,28 +75,21 @@ begin
 
     Close (Data_File);
 
-    -- Time and Life is passing by
-    Fish_Count := 0;
-    while Day < Run_Args.Nb_of_Days loop
-        Day        := @ + 1;
+
+    -- Time and Life is passing by  
+    for D in 1.. Run_Args.Nb_of_Days loop
         Fish_Count := Next_Day;
     end loop;
 
-    Fish_Count     := get_Nb_Fishs_in_School;
-    Big_Fish_Count := Population_IO.To_Big_Integer (Fish_Count);
-
     -- Output the result
     Put (Trim
-           (Source => Day'Image,
+           (Source => Run_Args.Nb_of_Days'Image,
             Side   => Left));
-    Put (" days to get ");
-    Put (To_String
-           (Arg   => Big_Fish_Count,
-            Width => 20));
+    Put (" days to get");
+    Put (Fish_Count'Image);
     Put_Line (" fishs.");
 
-end Puzzle_06;
+end Puzzle_06_Pyramid;
 
--- $ bin/puzzle_06 data/Puzzle_06.txt
--- 80 days to get               350605 fishs.
--- in 0.023 sec.
+-- $ bin/puzzle_06_Pyramid data/Puzzle_06.txt
+-- 256 days to get 1592778185024 fishs.

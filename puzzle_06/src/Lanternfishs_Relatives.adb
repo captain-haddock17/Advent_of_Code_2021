@@ -4,7 +4,7 @@ use Lanternfishs_IO;
 with Ada.Text_IO;
 use Ada.Text_IO;
 
-package body Lanternfish_School is
+package body Lanternfishs_Relatives is
 
     School_of_fishs       : Lanternfish_Ptr := null; -- First fish in tyhe School
     Last_fish             : Lanternfish_Ptr := null;
@@ -107,4 +107,4 @@ package body Lanternfish_School is
         return Count;
     end Count_Fishs_in_School;
 
-end Lanternfish_School;
+end Lanternfishs_Relatives;

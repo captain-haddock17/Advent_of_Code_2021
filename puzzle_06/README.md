@@ -89,26 +89,16 @@ Execution time (sec) ... on a [Ryzen 3900](https://www.amd.com/en/products/cpu/a
 
 ## 💡 New solution pattern 💡
 
-Based on the **cyclic vertical schema** observed for each existing fish (`6` down to `0`), and (`8` down to `0`) for a new fish, one could consider the initial shool of fish (5🐟 or 300🐟 in the data files provided) as an inital *frame* i.e array, which will be continued (repaced ?) with another new *frame*.
-Counting the population will be a matter of counting the frames and columns containing some fish.
-
-Values of the dimensions of the *frame* are for now hard-coded 🖐🏼.
+Lets consider the fish population as a counting the pyramid of age.
 
 ```ada
-Nb_Days_of_Generations : Positive := 18;
-Initial_Population     : Positive := 5;
+Mature : constant := 0;
+Young  : constant := 6;
+BabyFish : constant := 8;
+
+type Life_Timer is new Natural range Mature .. BabyFish;
+
+type Pyramid_of_Age is array (Life_Timer) of Population;
 ```
 
-which could be replaced by
-
-```ada
-Nb_Days_of_Generations : Positive := 256;
-Initial_Population     : Positive := 300;
-```
-
-```ada
--- Specific Frame algorithm
--- ------------------------
-
-type Generations_array is array (0 .. Nb_Days_of_Generations, 1 .. Initial_Population) of Lanternfish;
-```
+This is now actually efficient!
