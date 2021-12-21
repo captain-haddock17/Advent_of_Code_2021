@@ -40,7 +40,6 @@ procedure Puzzle_07 is
     -- ---------------------
     -- Objects for computing
     -- ---------------------
---    Actual_Crab_Population : Individual := 0;
     Some_Distance, Best_Alignement : Distance         := 0;
     Global_Fuel                    : Fuel             := 0;
     Crab_Count                     : Natural          := 0;
@@ -94,5 +93,13 @@ begin
 
 end Puzzle_07;
 
--- $ bin/Puzzle_07 data/Puzzle_06.txt
--- 256 days to get 1592778185024 fishs.
+
+-- $ bin/puzzle_07  data/Puzzle_07.txt 
+-- Number of crabs : 1000
+-- Best position to align : 321.
+-- Fuel consumed in LINEAR mode : 335330.
+
+-- $ bin/puzzle_07 PROGRESSIVE data/Puzzle_07.txt
+-- Number of crabs : 1000
+-- Best position to align : 457.
+-- Fuel consumed in PROGRESSIVE mode : 92439766.
