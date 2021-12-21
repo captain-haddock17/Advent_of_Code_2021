@@ -41,14 +41,16 @@ procedure Puzzle_07 is
     -- Objects for computing
     -- ---------------------
 --    Actual_Crab_Population : Individual := 0;
-    Some_Distance, Best_Alignement : Distance := 0;
-    Global_Fuel                    : Fuel     := 0;
-    Crab_Count                     : Natural  := 0;
+    Some_Distance, Best_Alignement : Distance         := 0;
+    Global_Fuel                    : Fuel             := 0;
+    Crab_Count                     : Natural          := 0;
+    Fuel_Mode                      : Consumption_Type := LINEAR;
 
 begin
 
     -- get the command lien arguments
     Command_Line.Get_Args (args => Run_Args);
+    Fuel_Mode := Run_Args.Fuel_Mode;
 
     -- Open and read the file
     Ada.Text_IO.Open
@@ -76,15 +78,17 @@ begin
     Close (Data_File);
     Put_Line ("Number of crabs :" & Crab_Count'Image);
 
-    Best_Alignement := Compute_Best_Position;
-    Global_Fuel     := Global_Fuel_Consumption (Best_Alignement);
+    Best_Alignement := Compute_Best_Position (Fuel_Mode => Fuel_Mode);
+    Global_Fuel     := Global_Fuel_Consumption
+          (Mode        => Fuel_Mode,
+           Destination => Best_Alignement);
 
     -- Output the result
     Put ("Best position to align :");
     Put (Best_Alignement'Image);
     Put_Line (".");
 
-    Put ("Fuel consumed");
+    Put ("Fuel consumed in " & Fuel_Mode'Image & " mode :");
     Put (Global_Fuel'Image);
     Put_Line (".");
 

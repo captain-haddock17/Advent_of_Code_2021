@@ -26,7 +26,19 @@ package body Command_Line is
 
         case ACL.Argument_Count is
             when 1 =>
+                args.Fuel_Mode      := LINEAR;
                 args.Data_File_Name := To_Bounded_String (ACL.Argument (1));
+
+            when 2 =>
+                if To_Upper (ACL.Argument (1)) = "LINEAR" then
+                    args.Fuel_Mode := LINEAR;
+                elsif To_Upper (ACL.Argument (1)) = "PROGRESSIVE" then
+                    args.Fuel_Mode := PROGRESSIVE;
+                else
+                    raise Bad_Arguments;
+                end if;
+
+                args.Data_File_Name := To_Bounded_String (ACL.Argument (2));
 
             when others =>
                 raise Bad_Arguments;

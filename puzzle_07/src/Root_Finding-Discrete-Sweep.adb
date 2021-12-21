@@ -2,16 +2,17 @@ with Ada.Text_IO;
 package body Root_Finding.Discrete.Sweep is
 
     function Minimum
-       (Data : F)
+       (Mode : Mode_enum;
+        Data : F)
         return X
     is
         Min            : X := Data'First;
         Previous, Next : Y;
     begin
-        Previous := Regression (Data, Data'First);
+        Previous := Regression (Mode, Data, Data'First);
 
         for i in Data'First .. X'Pred (Data'Last) loop
-            Next := Regression (Data, X'Succ (i));
+            Next := Regression (Mode, Data, X'Succ (i));
             Min  := i;
             exit when Previous <= Next;
 

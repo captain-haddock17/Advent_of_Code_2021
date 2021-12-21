@@ -12,13 +12,19 @@ package Crabs is
        of Distance;
 
     subtype Fuel is Integer;
+    type Consumption_Type is
+       (LINEAR,
+        PROGRESSIVE);
 
     procedure New_Crab (Position : Distance);
 
-    function Compute_Best_Position return Distance;
+    function Compute_Best_Position
+       (Fuel_Mode : Consumption_Type)
+        return Distance;
 
     function Global_Fuel_Consumption
-       (Destination : Distance)
+       (Mode        : Consumption_Type;
+        Destination : Distance)
         return Fuel;
 
 end Crabs;

@@ -6,13 +6,18 @@ package Root_Finding.Discrete.Sweep is
         type F is
            array (X)
            of Y;
+
+        type Mode_enum is (<>);
+
         with function Regression
-           (Data     : F;
+           (Mode     : Mode_enum;
+            Data     : F;
             Position : X)
             return Y;
 
     function Minimum
-       (Data : F)
+       (Mode : Mode_enum;
+        Data : F)
         return X;
 
 end Root_Finding.Discrete.Sweep;

@@ -1,3 +1,6 @@
+with Crabs;
+use Crabs;
+
 with Ada.Strings.Bounded;
 use Ada.Strings.Bounded;
 
@@ -7,6 +10,7 @@ package Command_Line is
     use OS_File_Name;
 
     type Program_args is record
+        Fuel_Mode      : Consumption_Type := LINEAR;
         Data_File_Name : Bounded_String;
     end record;
 
