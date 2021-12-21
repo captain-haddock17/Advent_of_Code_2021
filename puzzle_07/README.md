@@ -1,7 +1,7 @@
 # Design
 
 ## Library
-* use of a [generic function](http://www.ada-auth.org/standards/12rm/html/RM-12-1.html) definition to implement as an (almost) standard library.
+* use of a [generic function](http://www.ada-auth.org/standards/12rm/html/RM-12-1.html) definition to implement as an (almost) regular library.
 
 ## Algorithms
 
