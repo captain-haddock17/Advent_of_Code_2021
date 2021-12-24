@@ -52,7 +52,7 @@ A line will be read in 3 operations:
 * delimiter  `| `
 * the 4 `digit output` values.
 
-### Using somoe of the best Ada *goodies* ❤️ : `Streams`
+### Using some of the best Ada *goodies* ❤️ : `Streams`
 
 Each kind of object will have his own `'Read` procedure. see [§ Stream-Oriented Attributes](http://www.ada-auth.org/standards/12rm/html/RM-13-13-2.html)
 
