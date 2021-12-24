@@ -52,7 +52,9 @@ A line will be read in 3 operations:
 * delimiter  `| `
 * the 4 `digit output` values.
 
-## Using best Ada *goodies*
+### Using somoe of the best Ada *goodies* : `Streams`
+
+Each kind of object will have his own `'Read` procedure. see [§ Stream-Oriented Attributes](http://www.ada-auth.org/standards/12rm/html/RM-13-13-2.html)
 
 To `read` the different `[a-g]+` patterns having different lengths, a specific object `Pattern` is defined in package `E_Digits_IO`:
 
@@ -80,6 +82,10 @@ procedure Read_Segment_ID_With_Delimiter
 for Segment_ID_with_Delimiter'Read use Read_Segment_ID_With_Delimiter;
 ```
 
+### Package `Ada.Streams.Stream_IO` vs `Ada.Text_IO.Text_Streams`
+To cope with the end of line not having a usable pattern, basic `Stream_IO` is prefered over `Text_Streams`.\
+`Stream_IO` do not *eat* the `CR/LF` characters which can be used as delimiter(s) of the last `[a-g]+` pattern.
+
 ## Algorithms
 
 (...)
@@ -88,6 +94,6 @@ for Segment_ID_with_Delimiter'Read use Read_Segment_ID_With_Delimiter;
 
 For the fun of it (and to illustrate), you will find some usage of Ada Exception mecanism.
 Two `Check` procedures verifies the (theorical) health of each `Segment`.
-They verify the correct number of lit segments compared to the predifined current.
+They verify the correct number of lit segments compared to the predefined current.
 
 `Segment_in_Digit_Failure` could raise, and trigger `Display_Failure` exception.
