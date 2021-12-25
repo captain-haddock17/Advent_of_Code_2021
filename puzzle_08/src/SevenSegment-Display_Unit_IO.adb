@@ -2,7 +2,7 @@
 -- with Ada.Text_IO;
 
 
-package body E_Display_IO is
+package body SevenSegment.Display_Unit_IO is
 
     Separator : Character := ',';
 
@@ -14,4 +14,4 @@ package body E_Display_IO is
         null;
     end put;
 
-end E_Display_IO;
+end SevenSegment.Display_Unit_IO;

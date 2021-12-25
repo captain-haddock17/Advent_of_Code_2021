@@ -56,7 +56,7 @@ A line will be read in 3 operations:
 
 Each kind of object will have his own `'Read` procedure. see [§ Stream-Oriented Attributes](http://www.ada-auth.org/standards/12rm/html/RM-13-13-2.html)
 
-To `read` the different `[a-g]+` patterns having different lengths, a specific object `Pattern` is defined in package `E_Digits_IO`:
+To `read` the different `[a-g]+` patterns having different lengths, a specific object `Pattern` is defined in package `SevenSegment.Digit_Device_IO`:
 
 ```Ada
 type Pattern is record

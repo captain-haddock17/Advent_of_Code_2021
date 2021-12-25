@@ -1,7 +1,7 @@
-with E_Digits;
-use E_Digits;
+with SevenSegment.Digit_Device;
+use SevenSegment.Digit_Device;
 
-package E_Display is
+package SevenSegment.Display_Unit is
 
     Digits_in_Display : constant := 4;
     type Digit_IDs is new Positive range 1 .. Digits_in_Display;
@@ -22,4 +22,4 @@ package E_Display is
     procedure Check (This : Display);
 
 private
-end E_Display;
+end SevenSegment.Display_Unit;

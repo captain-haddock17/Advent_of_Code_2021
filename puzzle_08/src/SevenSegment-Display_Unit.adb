@@ -4,7 +4,7 @@ use Ada.Text_IO;
 with Ada.Exceptions;
 
 
-package body E_Display is
+package body SevenSegment.Display_Unit is
 
     -- -------------
     -- Check Display (Optional)
@@ -47,4 +47,4 @@ package body E_Display is
             raise;
     end Check;
 
-end E_Display;
+end SevenSegment.Display_Unit;

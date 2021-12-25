@@ -8,7 +8,7 @@ with Ada.Text_IO;
 use Ada.Text_IO;
 
 
-package body E_Digits is
+package body SevenSegment.Digit_Device is
 
     Digit_Counter : array (Digit_Values)
     of Natural := (others => 0);
@@ -54,4 +54,4 @@ package body E_Digits is
         end loop;
     end Check;
 
-end E_Digits;
+end SevenSegment.Digit_Device;

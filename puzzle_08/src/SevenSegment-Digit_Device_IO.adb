@@ -10,7 +10,7 @@ use Ada.Characters.Handling;
 with Ada.Text_IO;
 
 
-package body E_Digits_IO is
+package body SevenSegment.Digit_Device_IO is
 
     Separator : Character := ' ';
 
@@ -74,4 +74,4 @@ package body E_Digits_IO is
 
     end Read_Segment_ID_With_Delimiter;
 
-end E_Digits_IO;
+end SevenSegment.Digit_Device_IO;

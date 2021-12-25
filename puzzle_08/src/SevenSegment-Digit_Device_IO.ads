@@ -1,8 +1,8 @@
-with E_Digits;
-use E_Digits;
+with SevenSegment.Digit_Device;
+use SevenSegment.Digit_Device;
 
-with E_Display;
-use E_Display;
+with SevenSegment.Display_Unit;
+use SevenSegment.Display_Unit;
 
 -- Ada Common Libraries
 with Ada.Streams;
@@ -11,7 +11,7 @@ use Ada.Streams;
 with Ada.Text_IO;
 
 
-package E_Digits_IO is
+package SevenSegment.Digit_Device_IO is
 
     type Pattern is record
         Length   : Natural;
@@ -36,4 +36,4 @@ package E_Digits_IO is
         Item   : out Segment_ID_with_Delimiter);
     for Segment_ID_with_Delimiter'Read use Read_Segment_ID_With_Delimiter;
 
-end E_Digits_IO;
+end SevenSegment.Digit_Device_IO;

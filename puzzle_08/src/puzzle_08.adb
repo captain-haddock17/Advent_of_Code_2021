@@ -7,17 +7,17 @@
 -- License : CC-BY-SA
 -- ------------------------------------------------
 
-with E_Digits;
-use E_Digits;
+with SevenSegment.Digit_Device;
+use SevenSegment.Digit_Device;
 
-with E_Digits_IO;
-use E_Digits_IO;
+with SevenSegment.Digit_Device_IO;
+use SevenSegment.Digit_Device_IO;
 
-with E_Display;
-use E_Display;
+with SevenSegment.Display_Unit;
+use SevenSegment.Display_Unit;
 
-with E_Display_IO;
-use E_Display_IO;
+with SevenSegment.Display_Unit_IO;
+use SevenSegment.Display_Unit_IO;
 
 with Command_Line;
 use Command_Line;

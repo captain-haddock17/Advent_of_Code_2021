@@ -1,4 +1,4 @@
-package E_Digits is
+package SevenSegment.Digit_Device is
 
     type Segment_IDs is
        (A,
@@ -93,4 +93,4 @@ package E_Digits is
 
 private
 
-end E_Digits;
+end SevenSegment.Digit_Device;
