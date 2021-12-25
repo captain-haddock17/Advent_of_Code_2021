@@ -7,13 +7,10 @@ use Ada.Characters;
 with Ada.Text_IO;
 use Ada.Text_IO;
 
-
 package body SevenSegment.Digit_Device is
 
     Digit_Counter : array (Digit_Values)
     of Natural := (others => 0);
-
-
 
     -- -------------
     -- Check 1 Digit
@@ -41,8 +38,6 @@ package body SevenSegment.Digit_Device is
             Put_Line (Standard_Error, Ada.Exceptions.Exception_Message (Failure));
             raise;
     end Check;
-
-
 
     -- -------------------------
     -- Check Digits of a display (Optional)

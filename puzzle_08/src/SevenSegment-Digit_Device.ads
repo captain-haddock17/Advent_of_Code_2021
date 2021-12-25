@@ -32,11 +32,9 @@ package SevenSegment.Digit_Device is
         Consumption : Current;
     end record;
 
-
     type Digit_Display_array is
        array (Digit_Values)
        of Digit;
-
 
     Digit_0 : constant Digit :=
        (Value => 0, Segments => (A => ON, B => ON, C => ON, D => OFF, E => ON, F => ON, G => ON), Consumption => 6);
@@ -79,7 +77,6 @@ package SevenSegment.Digit_Device is
         7 => Digit_7,
         8 => Digit_8,
         9 => Digit_9);
-
 
     -- -------------
     -- Check 1 Digit (Optional)

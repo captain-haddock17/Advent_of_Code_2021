@@ -3,7 +3,6 @@ use Ada.Text_IO;
 
 with Ada.Exceptions;
 
-
 package body SevenSegment.Display_Unit is
 
     -- -------------

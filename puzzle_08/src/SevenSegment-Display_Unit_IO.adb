@@ -1,7 +1,6 @@
 -- Ada Common Libraries
 -- with Ada.Text_IO;
 
-
 package body SevenSegment.Display_Unit_IO is
 
     Separator : Character := ',';

@@ -1,7 +1,6 @@
 -- Ada Common Libraries
 with Ada.Strings.Bounded;
 
-
 package Command_Line is
 
     package OS_File_Name is new Ada.Strings.Bounded.Generic_Bounded_Length (1_024);
