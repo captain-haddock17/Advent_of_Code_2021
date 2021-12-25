@@ -37,24 +37,22 @@ use Ada.Strings;
 with Ada.Text_IO;
 use Ada;
 
-
 procedure Puzzle_08 is
 
     -- ----------------------------
     -- File and Run-Time Parameters
     -- ----------------------------
-    Data_File : File_Type;
+    Data_File   : File_Type;
     Data_Stream : Stream_Access;
-    Run_Args  : Command_Line.Program_args;
+    Run_Args    : Command_Line.Program_args;
 
     Signal_Pattern : array (Digit_Values)
     of Pattern;
 
     Data_Separator : String := "| ";
 
-    Output_Value   : array (Digit_IDs)
+    Output_Value : array (Digit_IDs)
     of Pattern;
-
 
     -- ---------------------
     -- Objects for computing
@@ -63,6 +61,8 @@ procedure Puzzle_08 is
 
     Count_of : array (Digit_Values)
     of Natural := (others => 0);
+
+    DV : Digit;
 
 begin
 
@@ -87,13 +87,13 @@ begin
 
             case Some_Pattern.Length is
                 when 2 =>
-                    null;
+                    DV := Digit_1;
                 when 4 =>
-                    null;
+                    DV := Digit_4;
                 when 3 =>
-                    null;
+                    DV := Digit_7;
                 when 7 =>
-                    null;
+                    DV := Digit_8;
                 when others =>
                     null;
             end case;
@@ -136,10 +136,10 @@ end Puzzle_08;
 
 -- $ bin/puzzle_08 data/Puzzle_08.txt
 -- Count of digits
--- 	Digit #1: 95
--- 	Digit #4: 108
--- 	Digit #7: 93
--- 	Digit #8: 113
+--      Digit #1: 95
+--      Digit #4: 108
+--      Digit #7: 93
+--      Digit #8: 113
 -- Total =  409
 
 -- $ bin/puzzle_08 data/Puzzle_08.txt
