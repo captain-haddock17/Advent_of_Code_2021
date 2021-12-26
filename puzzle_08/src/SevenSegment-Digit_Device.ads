@@ -15,10 +15,9 @@ package SevenSegment.Digit_Device is
     Digit_Values_Length : constant Positive :=
        Digit_Values'Pos (Digit_Values'Last) - Digit_Values'Pos (Digit_Values'First) + 1; -- 10
 
-    type Status is
-       (OFF,
-        ON);
-    for Status use (Off => 0, On => 1);
+    subtype Status is Boolean;
+    OFF : Status := False;
+    ON  : Status := True;
 
     type Segment_array is
        array (Segment_IDs)

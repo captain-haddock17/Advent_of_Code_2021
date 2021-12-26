@@ -19,6 +19,9 @@ use SevenSegment.Display_Unit;
 with SevenSegment.Display_Unit_IO;
 use SevenSegment.Display_Unit_IO;
 
+with SevenSegment.Wirings;
+use SevenSegment.Wirings;
+
 with Command_Line;
 use Command_Line;
 
@@ -46,8 +49,7 @@ procedure Puzzle_08 is
     Data_Stream : Stream_Access;
     Run_Args    : Command_Line.Program_args;
 
-    Signal_Pattern : array (Digit_Values)
-    of Pattern;
+    Signal_Pattern : Pattern_array;
 
     Data_Separator : String := "| ";
 
@@ -62,8 +64,10 @@ procedure Puzzle_08 is
     Count_of : array (Digit_Values)
     of Natural := (others => 0);
 
-    DV : Digit;
+    Digit_Matrix : Connection_Matrix; 
 
+    myDisplay : Display;
+    
 begin
 
     -- get the command lien arguments
@@ -83,21 +87,13 @@ begin
         for D in Digit_Values loop
 
             Pattern'Read (Data_Stream, Some_Pattern);
+
+            -- Store Pattern
             Signal_Pattern (D) := Some_Pattern;
 
-            case Some_Pattern.Length is
-                when 2 =>
-                    DV := Digit_1;
-                when 4 =>
-                    DV := Digit_4;
-                when 3 =>
-                    DV := Digit_7;
-                when 7 =>
-                    DV := Digit_8;
-                when others =>
-                    null;
-            end case;
         end loop;
+
+        Match_Connections(Digit_Matrix, Signal_Pattern);
 
         -- Data_Separator
         String'Read (Data_Stream, Data_Separator);
@@ -118,12 +114,22 @@ begin
                 when others =>
                     null;
             end case;
+
+            myDisplay(D) := Connect(Some_Pattern, Digit_Matrix);
+
+        end loop;
+
+    -- Output the result Part ’B’
+        Text_IO.New_Line;
+        for D in Digit_IDs loop
+            Text_IO.Put(myDisplay(D)'Image);
         end loop;
     end loop;
 
     Close (Data_File);
+    Text_IO.New_Line;
 
-    -- Output the result
+    -- Output the result Part ’A’
     Text_IO.Put_Line ("Count of digits");
     Text_IO.Put_Line (Latin_1.HT & "Digit #1:" & Count_of (1)'Image);
     Text_IO.Put_Line (Latin_1.HT & "Digit #4:" & Count_of (4)'Image);
@@ -131,6 +137,9 @@ begin
     Text_IO.Put_Line (Latin_1.HT & "Digit #8:" & Count_of (8)'Image);
 
     Text_IO.Put_Line ("Total = " & Natural (Count_of (1) + Count_of (4) + Count_of (7) + Count_of (8))'Image);
+
+
+
 
 end Puzzle_08;
 

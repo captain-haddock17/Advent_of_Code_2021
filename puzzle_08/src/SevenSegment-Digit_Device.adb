@@ -49,4 +49,5 @@ package body SevenSegment.Digit_Device is
         end loop;
     end Check;
 
+
 end SevenSegment.Digit_Device;

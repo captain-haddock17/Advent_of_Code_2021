@@ -1,6 +1,11 @@
 with SevenSegment.Digit_Device;
 use SevenSegment.Digit_Device;
 
+with SevenSegment.Wirings;
+use SevenSegment.Wirings;
+
+with SevenSegment.Digit_Device_IO;
+use SevenSegment.Digit_Device_IO;
 package SevenSegment.Display_Unit is
 
     Digits_in_Display : constant := 4;
@@ -10,16 +15,17 @@ package SevenSegment.Display_Unit is
        array (Digit_IDs)
        of Digit_Values;
 
-    type Connection_Matrix is
-       array (Segment_IDs, Segment_IDs)
-       of Boolean;
-
+   
     Display_Failure : exception;
 
     -- -------------
     -- Check Display (Optional)
     -- -------------
     procedure Check (This : Display);
+
+    procedure Match_Connections ( Matrix : in out Connection_Matrix; Patterns : Pattern_array);
+
+    function Connect(This : Pattern; Matrix : Connection_Matrix) return Digit_Values;
 
 private
 end SevenSegment.Display_Unit;
