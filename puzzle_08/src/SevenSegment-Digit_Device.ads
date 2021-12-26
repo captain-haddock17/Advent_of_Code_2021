@@ -11,7 +11,7 @@ package SevenSegment.Digit_Device is
 
     subtype Current is Natural range 0 .. Segment_IDs'Pos (Segment_IDs'Last) - Segment_IDs'Pos (Segment_IDs'First) + 1;
 
-    type Digit_Values is new Natural range 0 .. 9;
+    subtype Digit_Values is Natural range 0 .. 9;
     Digit_Values_Length : constant Positive :=
        Digit_Values'Pos (Digit_Values'Last) - Digit_Values'Pos (Digit_Values'First) + 1; -- 10
 

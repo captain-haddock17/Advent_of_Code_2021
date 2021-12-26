@@ -67,7 +67,8 @@ procedure Puzzle_08 is
     Digit_Matrix : Connection_Matrix; 
 
     myDisplay : Display;
-    
+    Number_to_Display : Natural;    
+    Grand_Total  : Natural := 0;
 begin
 
     -- get the command lien arguments
@@ -120,10 +121,14 @@ begin
         end loop;
 
     -- Output the result Part ’B’
-        Text_IO.New_Line;
+        Number_to_Display := 0;    
         for D in Digit_IDs loop
+            Number_to_Display := @+ myDisplay(D) * 10**(Digit_IDs'Last -D);
             Text_IO.Put(myDisplay(D)'Image);
         end loop;
+        Text_IO.New_Line;
+        Text_IO.Put_line(Number_to_Display'Image);
+        Grand_Total := @+ Number_to_Display;
     end loop;
 
     Close (Data_File);
@@ -137,6 +142,8 @@ begin
     Text_IO.Put_Line (Latin_1.HT & "Digit #8:" & Count_of (8)'Image);
 
     Text_IO.Put_Line ("Total = " & Natural (Count_of (1) + Count_of (4) + Count_of (7) + Count_of (8))'Image);
+    Text_IO.Put_Line ("Sum of all displayed digits =" & Grand_Total'Image);
+
 
 
 

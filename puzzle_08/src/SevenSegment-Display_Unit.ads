@@ -9,7 +9,7 @@ use SevenSegment.Digit_Device_IO;
 package SevenSegment.Display_Unit is
 
     Digits_in_Display : constant := 4;
-    type Digit_IDs is new Positive range 1 .. Digits_in_Display;
+    subtype Digit_IDs is Positive range 1 .. Digits_in_Display;
 
     type Display is
        array (Digit_IDs)
