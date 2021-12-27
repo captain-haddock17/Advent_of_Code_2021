@@ -1,7 +1,8 @@
 # Day 6: Lanternfish
 
-The sea floor is getting steeper. Maybe the sleigh keys got carried this way?
+© [Advent of Code](https://adventofcode.com/2021/day/6)
 
+The sea floor is getting steeper. Maybe the sleigh keys got carried this way?
 
 A massive school of glowing lanternfish swims past. They must spawn quickly to reach such large numbers - maybe **exponentially** quickly? You should model their growth rate to be sure.
 
@@ -25,7 +26,8 @@ Realizing what you're trying to do, the submarine automatically produces a list 
 
 `3,4,3,1,2`
 This list means that the first fish has an internal timer of 3, the second fish has an internal timer of 4, and so on until the fifth fish, which has an internal timer of 2. Simulating these fish over several days would proceed as follows:
-```
+
+```Text
 Initial state: 3,4,3,1,2
 After  1 day:  2,3,2,0,1
 After  2 days: 1,2,1,6,0,8
@@ -51,10 +53,13 @@ Each day, a `0` becomes a `6` and adds a new 8 to the end of the list, while eac
 
 In this example, after 18 days, there are a total of `26` fish. After 80 days, there would be a total of **`5934`**.
 
-Find a way to simulate lanternfish. 
+Find a way to simulate lanternfish.
+
 **How many lanternfish would there be after 80 days?**
 
-## Part Two 
+---
+
+## Part Two
 
 Suppose the lanternfish live forever and have unlimited food and space. Would they take over the entire ocean?
 

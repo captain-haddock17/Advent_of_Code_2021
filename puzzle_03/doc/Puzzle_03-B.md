@@ -1,5 +1,7 @@
 # Part Two
 
+© [Advent of Code](https://adventofcode.com/2021/day/3)
+
 Next, you should verify the **life support rating**, which can be determined by multiplying the **oxygen generator rating** by the **CO2 scrubber rating**.
 
 Both the **oxygen generator rating** and the **CO2 scrubber rating** are values that can be found in your diagnostic report - finding them is the tricky part. Both values are located using a similar process that involves filtering out values until only one remains. Before searching for either rating value, start with the full list of binary numbers from your diagnostic report and **consider just the first bit** of those numbers. Then:
@@ -32,5 +34,6 @@ Then, to determine the **CO2 scrubber rating** value from the same example above
 Finally, to find the life support rating, multiply the **oxygen generator rating** (`23`) by the **CO2 scrubber rating** (`10`) to get `230`.
 
 Use the binary numbers in your diagnostic report to calculate the **oxygen generator rating** and **CO2 scrubber rating**, then multiply them together.
-**What is the life support rating of the submarine?**
+
+**What is the life support rating of the submarine?**<br>
 (Be sure to represent your answer in *decimal*, not binary.)

@@ -1,5 +1,7 @@
 # Day 7: The Treachery of Whales
 
+© [Advent of Code](https://adventofcode.com/2021/day/7)
+
 A giant whale has decided your submarine is its next meal, and it's much faster than you are. There's nowhere to run!
 
 Suddenly, a swarm of crabs (each in its own tiny submarine - it's too deep for them otherwise) zooms in to rescue you! They seem to be preparing to blast a hole in the ocean floor; sensors indicate a **massive underground cave system** just beyond where they're aiming!
@@ -33,8 +35,11 @@ Each change of `1` step in horizontal position of a single crab costs `1` fuel. 
 
 This costs a total of `37` fuel. This is the cheapest possible outcome; more expensive outcomes include aligning at position `1` (`41` fuel), position `3` (`39` fuel), or position `10` (`71` fuel).
 
-Determine the horizontal position that the crabs can align to using the least fuel possible. 
+Determine the horizontal position that the crabs can align to using the least fuel possible.
+
 **How much fuel must they spend to align to that position?**
+
+---
 
 ## Part Two
 
@@ -58,4 +63,5 @@ As each crab moves, moving further becomes more expensive. This changes the best
 This costs a total of **`168`** fuel. This is the new cheapest possible outcome; the old alignment position (`2`) now costs `206` fuel instead.
 
 Determine the horizontal position that the crabs can align to using the least fuel possible so they can make you an escape route!
+
 **How much fuel must they spend to align to that position?**
