@@ -13,7 +13,7 @@ Some Ada source-code proposals for the puzzles of the [Advent of Code, year 2021
 
 ## Goal
 
-Aiming as a show-case of some best(?) Ada 2012/202x coding practices.\
+Aiming as a show-case of some best(?) Ada 2012/202x coding practices.
 
 1. **Readability**
 1. **Modular** & **Object Oriented** software design

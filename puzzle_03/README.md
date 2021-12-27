@@ -7,6 +7,7 @@
 
 <br>
 
+
 * use of Ada's standard [Language-Defined Attributes](http://www.ada-auth.org/standards/12rm/html/RM-K-2.html) for those *binary* values
   * `'Value`
   * `'Image`

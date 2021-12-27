@@ -83,7 +83,7 @@ for Segment_ID_with_Delimiter'Read use Read_Segment_ID_With_Delimiter;
 ```
 
 ### Package `Ada.Streams.Stream_IO` vs `Ada.Text_IO.Text_Streams`
-To cope with the end of line not having a usable pattern, basic `Stream_IO` is prefered over `Text_Streams`.\
+To cope with the end of line not having a usable pattern, basic `Stream_IO` is prefered over `Text_Streams`.<br>
 `Stream_IO` do not *eat* the `CR/LF` characters which can be used as delimiter(s) of the last `[a-g]+` pattern.
 
 ### Using some of the best Ada *goodies* ❤️ : [Unchecked Conversion](http://www.ada-auth.org/standards/12rm/html/RM-13-9.html)
