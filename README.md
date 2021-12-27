@@ -51,7 +51,13 @@ I used the forthcoming [Ada 202x syntax and language-libraries](http://www.ada-a
 
 ## How to Build & Run
 
-Alire (`alr`) needs to be initialized through a first `alr build` command. This completes `~/.config/alire/config.toml` file.<br>
+Alire (`alr`) needs to be initialized through a first `alr build` command. This completes `~/.config/alire/config.toml` file.
+
+To select the working Ada 2022 compiler:
+
+* `alr toolchain --select`
+  * and select `gnat_external=2021.0.0 [Detected at /opt/gnat-ce-2021/bin/gnat]`
+
 One may use plain `gprbuild`.
 
 ```shell
