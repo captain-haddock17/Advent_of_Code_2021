@@ -53,7 +53,7 @@ I used the forthcoming [Ada 202x syntax and language-libraries](http://www.ada-a
 
 Alire (`alr`) needs to be initialized through a first `alr build` command. This completes `~/.config/alire/config.toml` file.
 
-To select the working Ada 2022 compiler:
+To select the working Ada 2022 (WIP) compiler:
 
 * `alr toolchain --select`
   * and select `gnat_external=2021.0.0 [Detected at /opt/gnat-ce-2021/bin/gnat]`
