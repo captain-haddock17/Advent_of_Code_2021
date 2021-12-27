@@ -1,18 +1,23 @@
--- ------------------------------------------------
+-- -------------------------------------------------------------
 -- Author : William J. FRANCK
 -- e-Mail : william@sterna.io
 --
 -- Initial creation date : 2021-12-01
--- ------------------------------------------------
+-- -------------------------------------------------------------
 -- License : CC-BY-SA
--- ------------------------------------------------
+-- Ref: https://creativecommons.org/licenses/by-sa/4.0/legalcode
+-- -------------------------------------------------------------
+
 with Submarine.Sonar;
 use Submarine.Sonar;
 
+-- Ada Common Libraries
 with Ada.Command_Line;
 use Ada.Command_Line;
+
 with Ada.Text_IO;
 use Ada.Text_IO;
+
 with Ada.Strings.Bounded;
 
 procedure Puzzle_01_A is

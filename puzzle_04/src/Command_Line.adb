@@ -48,6 +48,9 @@ package body Command_Line is
         when Bad_Arguments =>
             New_Line (Standard_Error);
             Put_Line (Standard_Error, "Usage : " & ACL.Command_Name & " [FIRST|LAST] file_name ");
+            Put_Line (Standard_Error, "Options:");
+            Put_Line (Standard_Error, Latin_1.HT & "FIRST : Find first winning board");
+            Put_Line (Standard_Error, Latin_1.HT & "LAST  : Find last winning board");
             New_Line (Standard_Error);
             ACL.Set_Exit_Status (ACL.Failure);
             raise;

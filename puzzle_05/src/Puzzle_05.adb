@@ -1,11 +1,12 @@
--- ------------------------------------------------
+-- -------------------------------------------------------------
 -- Author : William J. FRANCK
 -- e-Mail : william@sterna.io
 --
 -- Initial creation date : 2021-12-05
--- ------------------------------------------------
+-- -------------------------------------------------------------
 -- License : CC-BY-SA
--- ------------------------------------------------
+-- Ref: https://creativecommons.org/licenses/by-sa/4.0/legalcode
+-- -------------------------------------------------------------
 
 with Hydrothermal_Vents;
 use Hydrothermal_Vents;
@@ -13,6 +14,7 @@ use Hydrothermal_Vents;
 with Hydrothermal_Vents_IO;
 use Hydrothermal_Vents_IO;
 
+-- Ada Common Libraries
 with Ada.Strings.Bounded;
 
 with Ada.Command_Line;

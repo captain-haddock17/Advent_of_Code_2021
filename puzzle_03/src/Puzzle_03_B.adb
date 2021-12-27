@@ -1,21 +1,25 @@
--- ------------------------------------------------
+-- -------------------------------------------------------------
 -- Author : William J. FRANCK
 -- e-Mail : william@sterna.io
 --
--- Initial creation date : 2021-12-02
--- ------------------------------------------------
+-- Initial creation date : 2021-12-03
+-- -------------------------------------------------------------
 -- License : CC-BY-SA
--- ------------------------------------------------
+-- Ref: https://creativecommons.org/licenses/by-sa/4.0/legalcode
+-- -------------------------------------------------------------
 
 with Submarine.Binary_Diagnostic;
 use Submarine.Binary_Diagnostic;
 
+-- Ada Common Libraries
 with Ada.Strings.Bounded;
+
 with Ada.Command_Line;
 use Ada.Command_Line;
 
 with Ada.Text_IO;
 use Ada.Text_IO;
+
 with Ada.Characters.Latin_1;
 use Ada.Characters;
 

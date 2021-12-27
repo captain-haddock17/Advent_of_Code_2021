@@ -1,11 +1,12 @@
--- ------------------------------------------------
+-- -------------------------------------------------------------
 -- Author : William J. FRANCK
 -- e-Mail : william@sterna.io
 --
 -- Initial creation date : 2021-12-02
--- ------------------------------------------------
+-- -------------------------------------------------------------
 -- License : CC-BY-SA
--- ------------------------------------------------
+-- Ref: https://creativecommons.org/licenses/by-sa/4.0/legalcode
+-- -------------------------------------------------------------
 
 with Submarine.Navigation;
 use Submarine.Navigation;
@@ -13,6 +14,7 @@ use Submarine.Navigation;
 with Submarine.Navigation_IO;
 use Submarine.Navigation_IO;
 
+-- Ada Common Libraries
 with Ada.Strings.Bounded;
 
 with Ada.Command_Line;
@@ -23,7 +25,6 @@ use Ada.Characters;
 
 with Ada.Text_IO;
 use Ada.Text_IO;
-
 
 procedure Puzzle_02_A is
 

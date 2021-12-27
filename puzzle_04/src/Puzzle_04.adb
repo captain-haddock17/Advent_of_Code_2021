@@ -1,13 +1,13 @@
--- ------------------------------------------------
+-- -------------------------------------------------------------
 -- Author : William J. FRANCK
 -- e-Mail : william@sterna.io
 --
 -- Initial creation date : 2021-12-04
--- ------------------------------------------------
+-- -------------------------------------------------------------
 -- License : CC-BY-SA
--- ------------------------------------------------
+-- Ref: https://creativecommons.org/licenses/by-sa/4.0/legalcode
+-- -------------------------------------------------------------
 
--- Specif Libraries
 with Bingo;
 use Bingo;
 
@@ -39,6 +39,7 @@ use Ada.Text_IO;
 
 with Ada.Strings;
 use Ada.Strings;
+
 with Ada.Strings.Bounded;
 
 with Ada.Characters.Latin_1;
