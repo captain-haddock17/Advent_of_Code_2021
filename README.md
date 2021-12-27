@@ -11,7 +11,7 @@ Some Ada source-code proposals for the puzzles of the © [Advent of Code, year 2
 |13|14|15|16|17|18|19|
 |20|21|22|23|24|25|-|
 
-Note: There still exist other GitHub repositories (20+) with Ada code proposals.
+Note: There are still other GitHub repositories (20+) with Ada code proposals.
 
 ---
 
@@ -33,10 +33,12 @@ Other seasoned or just plain beginner developer have published their Ada code on
 
 ## Ada 202X
 
-I used the forth comming [Ada 202x syntax and language-libraries](http://www.ada-auth.org/standards/ada2x.html), essentially:
-* `@` as a shorthand syntax, as in `Sum := @ + 1;` 
+I used the forthcoming [Ada 202x syntax and language-libraries](http://www.ada-auth.org/standards/ada2x.html), essentially:
+
+* `@` as a shorthand syntax, as in `Sum := @ + 1;`
 
 ---
+
 ## Tools used
 
 * Pretty Printer: [GNAT pretty-printer](https://docs.adahttps://docs.adacore.com/gnat_ugn-docs/html/gnat_ugn/gnat_ugn/gnat_utility_programs.html#the-gnat-pretty-printer-gnatpp)
@@ -46,6 +48,7 @@ I used the forth comming [Ada 202x syntax and language-libraries](http://www.ada
 * Package-Library manager: [Alire](https://blog.adacore.com/first-beta-release-of-alire-the-package-manager-for-ada-spark)
 
 ---
+
 ## How to Build & Run
 
 Alire (`alr`) needs to be initialized through a first `alr build` command. This completes `~/.config/alire/config.toml` file.<br>
