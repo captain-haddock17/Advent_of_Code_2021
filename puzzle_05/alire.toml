@@ -1,9 +1,13 @@
 name = "puzzle_05"
-description = "Shiny new project"
-version = "0.0.0"
+description = "Advent of Code 2021 - Hydrothermal_Vents"
+tags = ["AoC-2021","Integer_IO"]
+version = "1.0.0"
+licenses = CC-BY-SA-4.0
 
 authors = ["William J. FRANCK"]
 maintainers = ["William J. FRANCK <william@sterna.io>"]
 maintainers-logins = ["captain-haddock17"]
 
 executables = ["puzzle_05"]
+
+website = ["https://github.com/AdaForge/Advent_of_Code_2021"]

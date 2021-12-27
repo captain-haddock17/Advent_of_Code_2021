@@ -1,9 +1,13 @@
 name = "puzzle_04"
-description = "Shiny new project"
-version = "0.0.0"
+description = "Advent of Code 2021 - Bingo game"
+tags = ["AoC-2021","separate","task","Command_Line","Generic_Elementary_Functions","Bounded_IO","Exceptions"]
+version = "1.0.0"
+licenses = CC-BY-SA-4.0
 
 authors = ["William J. FRANCK"]
 maintainers = ["William J. FRANCK <william@sterna.io>"]
 maintainers-logins = ["captain-haddock17"]
 
 executables = ["puzzle_04"]
+
+website = ["https://github.com/AdaForge/Advent_of_Code_2021"]

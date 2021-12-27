@@ -1,9 +1,13 @@
 name = "puzzle_01"
-description = "Shiny new project"
-version = "0.0.0"
+description = "Advent of Code 2021 - Submarine.Sonar"
+tags = ["AoC-2021"]
+version = "1.0.0"
+licenses = CC-BY-SA-4.0
 
 authors = ["William J. FRANCK"]
 maintainers = ["William J. FRANCK <william@sterna.io>"]
 maintainers-logins = ["captain-haddock17"]
 
-executables = ["puzzle_01"]
+executables = ["puzzle_01_A", "puzzle_01_B"]
+
+website = ["https://github.com/AdaForge/Advent_of_Code_2021"]
