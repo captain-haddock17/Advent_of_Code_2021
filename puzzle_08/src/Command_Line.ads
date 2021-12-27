@@ -7,8 +7,11 @@ package Command_Line is
     use OS_File_Name;
 
     type Program_args is record
+        Trace          : Boolean := True;
         Data_File_Name : Bounded_String;
     end record;
+
+    BAD_ARGUMENTS : exception;
 
     procedure Get_Args (args : in out Program_args);
 

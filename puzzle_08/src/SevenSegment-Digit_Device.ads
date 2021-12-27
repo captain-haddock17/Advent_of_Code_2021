@@ -22,6 +22,10 @@ package SevenSegment.Digit_Device is
     type Segment_array is
        array (Segment_IDs)
        of Status;
+    type Segment_Binary is mod 2**(7 * 8);  -- Segment_array'Size
+    function To_Binary
+       (S : Segment_array)
+        return Segment_Binary;
 
     Segment_in_Digit_Failure : exception;
 

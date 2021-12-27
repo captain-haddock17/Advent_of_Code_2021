@@ -1,4 +1,6 @@
 -- Ada Common Libraries
+with Ada.Unchecked_Conversion;
+
 with Ada.Exceptions;
 
 with Ada.Characters.Latin_1;
@@ -49,5 +51,16 @@ package body SevenSegment.Digit_Device is
         end loop;
     end Check;
 
+    -- ---------
+    -- To_Binary
+    -- ---------
+    function To_Binary
+       (S : Segment_array)
+        return Segment_Binary
+    is
+        function Binary is new Ada.Unchecked_Conversion (Source => Segment_array, Target => Segment_Binary);
+    begin
+        return Binary (S);
+    end To_Binary;
 
 end SevenSegment.Digit_Device;

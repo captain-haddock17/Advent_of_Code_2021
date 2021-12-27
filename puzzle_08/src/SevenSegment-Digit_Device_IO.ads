@@ -6,7 +6,9 @@ with Ada.Streams;
 use Ada.Streams;
 
 with Ada.Unchecked_Conversion;
+
 with Ada.Text_IO;
+use Ada.Text_IO;
 
 package SevenSegment.Digit_Device_IO is
 
@@ -20,7 +22,6 @@ package SevenSegment.Digit_Device_IO is
         Delimiter : Boolean;
     end record;
 
-
     procedure Read_Pattern
        (Stream :     not null access Ada.Streams.Root_Stream_Type'Class;
         Item   : out Pattern);
@@ -30,5 +31,10 @@ package SevenSegment.Digit_Device_IO is
        (Stream :     not null access Ada.Streams.Root_Stream_Type'Class;
         Item   : out Segment_ID_with_Delimiter);
     for Segment_ID_with_Delimiter'Read use Read_Segment_ID_With_Delimiter;
+
+    procedure Put
+       (File : in File_Type;
+        Item :    Segment_array);
+    procedure Put (Item : Segment_array);
 
 end SevenSegment.Digit_Device_IO;

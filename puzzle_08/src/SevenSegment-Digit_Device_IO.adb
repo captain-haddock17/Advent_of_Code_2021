@@ -8,7 +8,7 @@ with Ada.Characters.Handling;
 use Ada.Characters.Handling;
 
 with Ada.Text_IO;
-
+use Ada.Text_IO;
 package body SevenSegment.Digit_Device_IO is
 
     Separator : Character := ' ';
@@ -69,5 +69,30 @@ package body SevenSegment.Digit_Device_IO is
             Item.Delimiter := True;
 
     end Read_Segment_ID_With_Delimiter;
+
+    -- ---
+    -- Put
+    -- ---
+    procedure Put
+       (File : in File_Type;
+        Item :    Segment_array)
+    is
+    begin
+        for ID in Segment_IDs loop
+            if Item (ID) = ON then
+                Put (File, ID'Image);
+            else
+                Put (File, '.');
+            end if;
+        end loop;
+    end Put;
+
+    -- ---
+    -- Put
+    -- ---
+    procedure Put (Item : Segment_array) is
+    begin
+        Put (Standard_Output, Item);
+    end Put;
 
 end SevenSegment.Digit_Device_IO;

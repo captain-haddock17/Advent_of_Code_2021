@@ -15,17 +15,26 @@ package SevenSegment.Display_Unit is
        array (Digit_IDs)
        of Digit_Values;
 
-   
-    Display_Failure : exception;
+    DISPLAY_FAILURE  : exception;
+    NO_SEGMENT_MATCH : exception;
 
     -- -------------
     -- Check Display (Optional)
     -- -------------
     procedure Check (This : Display);
 
-    procedure Match_Connections ( Matrix : in out Connection_Matrix; Patterns : Pattern_array);
+    procedure Match_Connections
+       (Matrix   : in out Connection_Matrix;
+        Patterns :        Pattern_array);
 
-    function Connect(This : Pattern; Matrix : Connection_Matrix) return Digit_Values;
+    function Connect
+       (This   : Pattern;
+        Matrix : Connection_Matrix)
+        return Digit_Values;
+
+    function To_Number(This : Display) return Natural;
+
+    function To_String(This : Display) return String;
 
 private
 end SevenSegment.Display_Unit;
