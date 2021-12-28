@@ -1,17 +1,36 @@
 package body Root_Finding.Discrete.Bisection is
 
-    function Minimum return X is
-        Min            : X := X'First;
+    function Minimum
+       (Data : F)
+        return X
+    is
+        Min            : X := Data'First;
+        Mid            : X := X((Data'Last - Data'First)/2);
         Previous, Next : Y;
     begin
-        Previous := Regression (X'First);
+        Previous := Regression (Data, Data'First);
 
-        for i in X'First .. X'Pred (X'Last) loop
+        while  Previous < Next loop
+                    Mid            : X := X((Data'Last - Data'First)/2);
+
+            Next := Regression (Data, X'Succ (i));
             Min  := i;
-            Next := Regression (X'Succ (i));
-            exit when Previous < Next;
+
+            Previous := Next;
         end loop;
+
+        while    Next <= Previous loop
+            Mid            : X := X((Data'Last - Data'First)/2);
+
+            Next := Regression (Data, X'Succ (i));
+            Min  := i;
+
+            Previous := Next;
+        end loop;
+
         return Min;
+
     end Minimum;
+
 
 end Root_Finding.Discrete.Bisection;
