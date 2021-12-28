@@ -1,3 +1,0 @@
-abstract project Puzzle_09_Config is
-   Crate_Version := "0.0.0";
-end Puzzle_09_Config;
